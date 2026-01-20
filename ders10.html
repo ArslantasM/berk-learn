@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-brand"><a href="course.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
         <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
         <div class="level-switch">
             <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
@@ -61,7 +61,7 @@
                 <div class="code-block">
                     <div class="code-header"><span class="code-lang">🦸 super_attack.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>// Normal saldırı - tek tek
-fonksiyon normal_saldir(dusmanlar: &mut [tamsayi], hasar: tamsayi) {
+fonksiyon normal_saldir(dusmanlar: &mut [tamsayı], hasar: tamsayı) {
     yazdir("👊 Normal Saldırı (tek tek)");
     icin i in 0..dusmanlar.uzunluk() {
         dusmanlar[i] = dusmanlar[i] - hasar;
@@ -70,7 +70,7 @@ fonksiyon normal_saldir(dusmanlar: &mut [tamsayi], hasar: tamsayi) {
 }
 
 // SÜPER SALDIR - hepsine aynı anda!
-fonksiyon super_saldir(dusmanlar: &mut [tamsayi], hasar: tamsayi) {
+fonksiyon super_saldir(dusmanlar: &mut [tamsayı], hasar: tamsayı) {
     yazdir("⚡ SÜPER SALDIRI (hepsine aynı anda!)");
     // SIMD: 4 düşmana aynı anda vur!
     dusmanlar.simd_cikar(hasar);
@@ -80,8 +80,8 @@ fonksiyon super_saldir(dusmanlar: &mut [tamsayi], hasar: tamsayi) {
 }
 
 fonksiyon ana() {
-    degisken mut dusmanlar1 = [100, 100, 100, 100];
-    degisken mut dusmanlar2 = [100, 100, 100, 100];
+    değişken mut dusmanlar1 = [100, 100, 100, 100];
+    değişken mut dusmanlar2 = [100, 100, 100, 100];
     
     yazdir("🎮 SAVAŞ BAŞLIYOR!\n");
     yazdir("4 düşman, her birinin 100 canı var\n");
@@ -104,22 +104,22 @@ fonksiyon ana() {
 // Her pikseli tek tek boyamak yavaş!
 
 fonksiyon ana() {
-    degisken mut pikseller = [0; 1000];  // 1000 siyah piksel
+    değişken mut pikseller = [0; 1000];  // 1000 siyah piksel
     
     yazdir("🎨 1000 piksel boyama yarışı!\n");
     
     // Normal: Tek tek boya
-    degisken baslangic1 = zaman_al();
+    değişken baslangic1 = zaman_al();
     icin i in 0..1000 {
         pikseller[i] = 255;  // Beyaz yap
     }
-    degisken sure1 = zaman_al() - baslangic1;
+    değişken sure1 = zaman_al() - baslangic1;
     yazdir("👆 Normal boyama: {} ms", sure1);
     
     // SIMD: 8 piksel aynı anda!
-    degisken baslangic2 = zaman_al();
+    değişken baslangic2 = zaman_al();
     pikseller.simd_doldur(255);  // Hepsini aynı anda!
-    degisken sure2 = zaman_al() - baslangic2;
+    değişken sure2 = zaman_al() - baslangic2;
     yazdir("⚡ SIMD boyama: {} ms", sure2);
     
     yazdir("\n🏆 SIMD {} kat daha hızlı!", sure1 / sure2);
@@ -165,19 +165,19 @@ a[0..4] = b[0..4] + c[0..4];  // Tek işlem, 4 sonuç!</code></pre>
 
 fonksiyon ana() {
     // 4 elemanlı vektörler
-    degisken a = f32x4::yeni([1.0, 2.0, 3.0, 4.0]);
-    degisken b = f32x4::yeni([5.0, 6.0, 7.0, 8.0]);
+    değişken a = f32x4::yeni([1.0, 2.0, 3.0, 4.0]);
+    değişken b = f32x4::yeni([5.0, 6.0, 7.0, 8.0]);
     
     // SIMD toplama - 4 toplama tek seferde!
-    degisken sonuc = a + b;
+    değişken sonuc = a + b;
     yazdir("a + b = {:?}", sonuc);  // [6.0, 8.0, 10.0, 12.0]
     
     // SIMD çarpma
-    degisken carpim = a * b;
+    değişken carpim = a * b;
     yazdir("a * b = {:?}", carpim);  // [5.0, 12.0, 21.0, 32.0]
     
     // Toplam (horizontal sum)
-    degisken toplam = sonuc.toplam();
+    değişken toplam = sonuc.toplam();
     yazdir("Toplam: {}", toplam);  // 36.0
 }
 </code></pre>
@@ -391,7 +391,7 @@ function main() {
                 <span class="tr">BERK 101 kursunu tamamladınız! Artık BERK ile sistem programlamaya hazırsınız.</span>
                 <span class="en" style="display:none;">You've completed BERK 101! You're now ready for systems programming with BERK.</span>
             </p>
-            <a href="course.html" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: white; color: #667eea; border-radius: 8px; text-decoration: none; font-weight: bold;">
+            <a href="index.html" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: white; color: #667eea; border-radius: 8px; text-decoration: none; font-weight: bold;">
                 <span class="tr">🏠 Ana Sayfaya Dön</span>
                 <span class="en" style="display:none;">🏠 Return to Home</span>
             </a>
@@ -400,9 +400,11 @@ function main() {
 
     <footer class="lesson-footer">
         <a href="ders09.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
-        <a href="course.html"><span class="tr">🏠 Ana Sayfa</span><span class="en" style="display:none;">🏠 Home</span></a>
+        <a href="index.html"><span class="tr">🏠 Ana Sayfa</span><span class="en" style="display:none;">🏠 Home</span></a>
     </footer>
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
 

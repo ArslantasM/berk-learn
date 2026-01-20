@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-brand"><a href="course.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
         <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
         <div class="level-switch">
             <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
@@ -63,40 +63,40 @@
                     <pre><code>// T = Herhangi bir tip!
 yapi Sandik[T] {
     icerik: T,
-    kilit: mantiksal,
+    kilit: mantıksal,
 }
 
 impl[T] Sandik[T] {
     fonksiyon yeni(esya: T) -> Sandik[T] {
         don Sandik {
             icerik: esya,
-            kilit: yanlis,
+            kilit: yanlış,
         };
     }
     
     fonksiyon ac(&mut self) -> &T {
-        self.kilit = yanlis;
+        self.kilit = yanlış;
         yazdir("🔓 Sandık açıldı!");
         don &self.icerik;
     }
     
     fonksiyon kilitle(&mut self) {
-        self.kilit = dogru;
+        self.kilit = doğru;
         yazdir("🔒 Sandık kilitlendi!");
     }
 }
 
 fonksiyon ana() {
     // Elmas sandığı
-    degisken mut elmas_sandigi = Sandik::yeni("💎 Efsanevi Elmas");
+    değişken mut elmas_sandigi = Sandik::yeni("💎 Efsanevi Elmas");
     yazdir("Sandık içeriği: {}", elmas_sandigi.ac());
     
     // Altın sandığı
-    degisken mut altin_sandigi = Sandik::yeni(1000);
+    değişken mut altin_sandigi = Sandik::yeni(1000);
     yazdir("Altın miktarı: {} 💰", altin_sandigi.ac());
     
     // Silah sandığı
-    degisken mut silah_sandigi = Sandik::yeni("⚔️ Ejder Kılıcı");
+    değişken mut silah_sandigi = Sandik::yeni("⚔️ Ejder Kılıcı");
     yazdir("Silah: {}", silah_sandigi.ac());
 }
 </code></pre>
@@ -109,21 +109,21 @@ fonksiyon ana() {
                     <div class="code-header"><span class="code-lang">⚡ yetenekler.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>// Trait = Yetenek! Bunu yapabilen herkes...
 ozellik Saldirabilir {
-    fonksiyon saldir(&self) -> tamsayi;
+    fonksiyon saldir(&self) -> tamsayı;
     fonksiyon saldir_ismi(&self) -> metin;
 }
 
 yapi Savasci {
-    guc: tamsayi,
+    guc: tamsayı,
 }
 
 yapi Buyucu {
-    buyu_gucu: tamsayi,
+    buyu_gucu: tamsayı,
 }
 
 // Savaşçı saldırabilir
 impl Saldirabilir icin Savasci {
-    fonksiyon saldir(&self) -> tamsayi {
+    fonksiyon saldir(&self) -> tamsayı {
         don self.guc * 2;
     }
     fonksiyon saldir_ismi(&self) -> metin {
@@ -133,7 +133,7 @@ impl Saldirabilir icin Savasci {
 
 // Büyücü de saldırabilir
 impl Saldirabilir icin Buyucu {
-    fonksiyon saldir(&self) -> tamsayi {
+    fonksiyon saldir(&self) -> tamsayı {
         don self.buyu_gucu * 3;
     }
     fonksiyon saldir_ismi(&self) -> metin {
@@ -147,8 +147,8 @@ fonksiyon savas_yap[T: Saldirabilir](karakter: &T) {
 }
 
 fonksiyon ana() {
-    degisken savasci = Savasci { guc: 50 };
-    degisken buyucu = Buyucu { buyu_gucu: 40 };
+    değişken savasci = Savasci { guc: 50 };
+    değişken buyucu = Buyucu { buyu_gucu: 40 };
     
     savas_yap(&savasci);  // ⚔️ Kılıç Darbesi: 100 hasar!
     savas_yap(&buyucu);   // 🔥 Ateş Topu: 120 hasar!
@@ -187,18 +187,18 @@ impl[T] Yigin[T] {
         self.elemanlar.son_cikar()
     }
     
-    fonksiyon bos_mu(&self) -> mantiksal {
+    fonksiyon bos_mu(&self) -> mantıksal {
         self.elemanlar.bos_mu()
     }
     
-    fonksiyon boyut(&self) -> tamsayi {
+    fonksiyon boyut(&self) -> tamsayı {
         self.elemanlar.uzunluk()
     }
 }
 
 fonksiyon ana() {
     // Sayı yığını
-    degisken mut sayilar = Yigin::yeni();
+    değişken mut sayilar = Yigin::yeni();
     sayilar.ekle(1);
     sayilar.ekle(2);
     sayilar.ekle(3);
@@ -208,7 +208,7 @@ fonksiyon ana() {
     son
     
     // Metin yığını - aynı kod!
-    degisken mut metinler = Yigin::yeni();
+    değişken mut metinler = Yigin::yeni();
     metinler.ekle("Merhaba");
     metinler.ekle("Dünya");
     
@@ -471,4 +471,6 @@ function main() {
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
 

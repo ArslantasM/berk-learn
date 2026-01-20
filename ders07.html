@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-brand"><a href="course.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
         <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
         <div class="level-switch">
             <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
@@ -63,11 +63,11 @@
                     <pre><code>// Sahiplik - Bir oyuncağın tek sahibi var!
 fonksiyon ana() {
     // Ahmet'in bir robot oyuncağı var
-    degisken robot = "🤖 Süper Robot";
+    değişken robot = "🤖 Süper Robot";
     yazdir("Ahmet'in oyuncağı: {}", robot);
     
     // Ahmet robotu Ayşe'ye VERDİ (sahiplik geçti)
-    degisken aysenin_robotu = robot;
+    değişken aysenin_robotu = robot;
     yazdir("Ayşe'nin yeni oyuncağı: {}", aysenin_robotu);
     
     // ❌ HATA! robot artık Ahmet'te değil!
@@ -94,7 +94,7 @@ fonksiyon kitabi_yazdir(kitap: &metin) {
 }
 
 fonksiyon ana() {
-    degisken benim_kitabim = "Harry Potter";
+    değişken benim_kitabim = "Harry Potter";
     
     // Kitabı ödünç ver (& ile)
     kitabi_oku(&benim_kitabim);    // Arkadaş okudu
@@ -124,12 +124,12 @@ fonksiyon ana() {
                 <div class="code-block">
                     <div class="code-header"><span class="code-lang">BERK</span></div>
                     <pre><code>// Stack: Sabit boyutlu, hızlı
-degisken x: tamsayi = 42;        // Stack'te
-degisken y: ondalik = 3.14;      // Stack'te
+değişken x: tamsayı = 42;        // Stack'te
+değişken y: ondalık = 3.14;      // Stack'te
 
 // Heap: Dinamik boyutlu, referans gerekir
-degisken metin = "Merhaba";      // Data heap'te, pointer stack'te
-degisken liste = [1, 2, 3, 4];   // Array heap'te
+değişken metin = "Merhaba";      // Data heap'te, pointer stack'te
+değişken liste = [1, 2, 3, 4];   // Array heap'te
 </code></pre>
                 </div>
             </section>
@@ -147,20 +147,20 @@ fonksiyon odunc_al(s: &Metin) {
 }  // Sadece referans biter, asıl veri yaşar
 
 fonksiyon ana() {
-    degisken s1 = Metin::yeni("Merhaba");
+    değişken s1 = Metin::yeni("Merhaba");
     
     // Move - sahiplik geçer
     sahiplik_al(s1);
     // yazdir("{}", s1);  // ❌ HATA: s1 artık geçersiz
     
-    degisken s2 = Metin::yeni("Dünya");
+    değişken s2 = Metin::yeni("Dünya");
     
     // Borrow - sadece referans
     odunc_al(&s2);
     yazdir("Hâlâ sahibim: {}", s2);  // ✅ Çalışır
     
     // Clone - derin kopya
-    degisken s3 = s2.klon();
+    değişken s3 = s2.klon();
     yazdir("Orijinal: {}, Kopya: {}", s2, s3);
 }
 </code></pre>
@@ -358,4 +358,6 @@ function main() {
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
 

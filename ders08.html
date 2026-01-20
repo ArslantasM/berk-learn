@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-brand"><a href="course.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
         <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
         <div class="level-switch">
             <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
@@ -61,7 +61,7 @@
                 <div class="code-block">
                     <div class="code-header"><span class="code-lang">🔍 hazine_ara.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>// Belki (Option) - Ya varsa ya yoksa!
-fonksiyon sandik_ac(konum: tamsayi) -> Belki[metin] {
+fonksiyon sandik_ac(konum: tamsayı) -> Belki[metin] {
     esle konum yap
         1 => Bazi("💎 Elmas buldun!"),
         2 => Bazi("💰 Altın buldun!"),
@@ -92,16 +92,16 @@ fonksiyon ana() {
                 <div class="code-block">
                     <div class="code-header"><span class="code-lang">👹 boss_attack.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>// Sonuç (Result) - Ya başarılı ya başarısız!
-fonksiyon saldir(oyuncu_guc: tamsayi, boss_kalkan: tamsayi) -> Sonuc[tamsayi, metin] {
-    eger oyuncu_guc <= 0 yap
+fonksiyon saldir(oyuncu_guc: tamsayı, boss_kalkan: tamsayı) -> Sonuc[tamsayı, metin] {
+    eğer oyuncu_guc <= 0 yap
         don Hata("💀 Gücün yetmiyor!");
     son
     
-    eger boss_kalkan > oyuncu_guc yap
+    eğer boss_kalkan > oyuncu_guc yap
         don Hata("🛡️ Kalkan çok güçlü!");
     son
     
-    degisken hasar = oyuncu_guc - boss_kalkan;
+    değişken hasar = oyuncu_guc - boss_kalkan;
     don Tamam(hasar);
 }
 
@@ -158,7 +158,7 @@ enum Result[T, E] {
                 <h2>📝 <span class="tr">Örnek 1: Kullanıcı Doğrulama</span><span class="en" style="display:none;">Example 1: User Validation</span></h2>
                 <div class="code-block">
                     <div class="code-header"><span class="code-lang">👤 validation.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
-                    <pre><code>fonksiyon kullanici_bul(id: tamsayi) -> Belki[metin] {
+                    <pre><code>fonksiyon kullanici_bul(id: tamsayı) -> Belki[metin] {
     esle id yap
         1 => Bazi("Ali"),
         2 => Bazi("Ayşe"),
@@ -167,14 +167,14 @@ enum Result[T, E] {
     son
 }
 
-fonksiyon yas_dogrula(yas: tamsayi) -> Sonuc[(), metin] {
-    eger yas < 0 yap
+fonksiyon yas_doğrula(yas: tamsayı) -> Sonuc[(), metin] {
+    eğer yas < 0 yap
         don Hata("Yaş negatif olamaz");
     son
-    eger yas < 18 yap
+    eğer yas < 18 yap
         don Hata("18 yaşından küçükler giremez");
     son
-    eger yas > 120 yap
+    eğer yas > 120 yap
         don Hata("Geçersiz yaş");
     son
     don Tamam(());
@@ -193,7 +193,7 @@ fonksiyon ana() {
     
     // Result kullanımı
     icin yas in [25, -5, 15, 150] {
-        esle yas_dogrula(yas) yap
+        esle yas_doğrula(yas) yap
             Tamam(_) => yazdir("✅ Yaş {} geçerli", yas),
             Hata(msg) => yazdir("❌ Yaş {}: {}", yas, msg),
         son
@@ -435,4 +435,6 @@ async function main() -> Result<()> {
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
 

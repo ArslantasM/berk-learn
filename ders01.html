@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar">
         <div class="nav-brand">
-            <a href="course.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;">
+            <a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;">
                 <span class="logo">🦅</span>
                 <span class="brand-text">BERK 101</span>
             </a>
@@ -32,7 +32,7 @@
 
     <header class="lesson-header">
         <div class="lesson-nav">
-            <a href="course.html">← 
+            <a href="index.html">← 
                 <span class="tr">Ana Sayfa</span>
                 <span class="en" style="display:none;">Home</span>
             </a>
@@ -259,12 +259,12 @@ kullan std::io::{yazdir, eprintln};
 
 fonksiyon ana() -> Sonuc[(), Hata] {
     // Zaman damgalı log başlığı
-    degisken simdi = zaman::simdi();
+    değişken simdi = zaman::simdi();
     yazdir("[{}] Uygulama başlatılıyor...", simdi.iso8601());
     
     // Ortam değişkenlerini oku
-    degisken kullanici = ortam::degisken("USER").varsayilan("unknown");
-    degisken ev = ortam::degisken("HOME").varsayilan("/tmp");
+    değişken kullanici = ortam::değişken("USER").varsayilan("unknown");
+    değişken ev = ortam::değişken("HOME").varsayilan("/tmp");
     
     yazdir("[INFO] Kullanıcı: {}", kullanici);
     yazdir("[INFO] Ev dizini: {}", ev);
@@ -371,11 +371,13 @@ berk emit-ir main.berk -o output.ll
     </main>
 
     <footer class="lesson-footer">
-        <a href="course.html">← <span class="tr">Ana Sayfa</span><span class="en" style="display:none;">Home</span></a>
+        <a href="index.html">← <span class="tr">Ana Sayfa</span><span class="en" style="display:none;">Home</span></a>
         <a href="ders02.html"><span class="tr">Sonraki: Değişkenler →</span><span class="en" style="display:none;">Next: Variables →</span></a>
     </footer>
 
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
 

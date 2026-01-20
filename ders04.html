@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-brand"><a href="course.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
         <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
         <div class="level-switch">
             <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
@@ -73,9 +73,9 @@ fonksiyon buz_oku() {
 }
 
 // ⚡ Şimşek büyüsü - parametre ile
-fonksiyon simsek(guc: tamsayi) {
+fonksiyon simsek(guc: tamsayı) {
     yazdir("⚡ ŞİMŞEK! Güç: {}", guc);
-    degisken hasar = guc * 10;
+    değişken hasar = guc * 10;
     yazdir("💥 {} hasar verdin!", hasar);
 }
 
@@ -100,23 +100,23 @@ fonksiyon ana() {
                 <div class="code-block">
                     <div class="code-header"><span class="code-lang">🦸 yetenekler.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>// İyileştirme büyüsü - değer döndürüyor!
-fonksiyon iyilestir(mevcut_can: tamsayi) -> tamsayi {
-    degisken iyilesme = 25;
+fonksiyon iyilestir(mevcut_can: tamsayı) -> tamsayı {
+    değişken iyilesme = 25;
     yazdir("💚 +{} can iyileştirildi!", iyilesme);
     don mevcut_can + iyilesme;
 }
 
 // Hasar hesapla
-fonksiyon hasar_hesapla(guc: tamsayi, zirh: tamsayi) -> tamsayi {
-    degisken net_hasar = guc - zirh;
-    eger net_hasar < 0 yap
+fonksiyon hasar_hesapla(guc: tamsayı, zirh: tamsayı) -> tamsayı {
+    değişken net_hasar = guc - zirh;
+    eğer net_hasar < 0 yap
         don 0;
     son
     don net_hasar;
 }
 
 fonksiyon ana() {
-    degisken mut can = 50;
+    değişken mut can = 50;
     yazdir("❤️ Başlangıç canı: {}", can);
     
     can = iyilestir(can);
@@ -126,7 +126,7 @@ fonksiyon ana() {
     yazdir("❤️ Şimdiki can: {}", can);
     
     yazdir("\n⚔️ Savaş!");
-    degisken hasar = hasar_hesapla(30, 10);
+    değişken hasar = hasar_hesapla(30, 10);
     yazdir("Alınan hasar: {}", hasar);
 }
 </code></pre>
@@ -159,7 +159,7 @@ fonksiyon selamla() {                    // Parametresiz, dönüşsüz
     yazdir("Merhaba!");
 }
 
-fonksiyon kare(x: tamsayi) -> tamsayi {  // Parametreli, dönüşlü
+fonksiyon kare(x: tamsayı) -> tamsayı {  // Parametreli, dönüşlü
     don x * x;
 }
 </code></pre>
@@ -171,23 +171,23 @@ fonksiyon kare(x: tamsayi) -> tamsayi {  // Parametreli, dönüşlü
                 <div class="code-block">
                     <div class="code-header"><span class="code-lang">📐 matematik.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>// Daire alanı
-fonksiyon daire_alani(yaricap: ondalik) -> ondalik {
+fonksiyon daire_alani(yaricap: ondalık) -> ondalık {
     sabit PI = 3.14159;
     don PI * yaricap * yaricap;
 }
 
 // Dikdörtgen çevresi
-fonksiyon dikdortgen_cevresi(en: ondalik, boy: ondalik) -> ondalik {
+fonksiyon dikdortgen_cevresi(en: ondalık, boy: ondalık) -> ondalık {
     don 2.0 * (en + boy);
 }
 
 // Üçgen alanı
-fonksiyon ucgen_alani(taban: ondalik, yukseklik: ondalik) -> ondalik {
+fonksiyon ucgen_alani(taban: ondalık, yukseklik: ondalık) -> ondalık {
     don (taban * yukseklik) / 2.0;
 }
 
 // Fahrenheit'tan Celsius'a
-fonksiyon fahrenheit_to_celsius(f: ondalik) -> ondalik {
+fonksiyon fahrenheit_to_celsius(f: ondalık) -> ondalık {
     don (f - 32.0) * 5.0 / 9.0;
 }
 
@@ -410,4 +410,6 @@ function main() {
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
 

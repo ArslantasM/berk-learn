@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-brand"><a href="course.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
         <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
         <div class="level-switch">
             <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
@@ -59,10 +59,10 @@
                     <div class="code-header"><span class="code-lang">🎮 karakter.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>fonksiyon ana() {
     // 🎒 Kutularımızı (değişkenler) oluşturalım!
-    degisken karakter_adi = "ShadowNinja";
-    degisken seviye = 42;
-    degisken can = 100.0;
-    degisken zirh_var = dogru;
+    değişken karakter_adi = "ShadowNinja";
+    değişken seviye = 42;
+    değişken can = 100.0;
+    değişken zirh_var = doğru;
     
     // 📺 Ekrana yazdıralım
     yazdir("👤 Karakter: {}", karakter_adi);
@@ -71,7 +71,7 @@
     yazdir("🛡️ Zırh: {}", zirh_var);
     
     // 🎯 Toplam güç hesapla
-    degisken guc = seviye * 10 + can;
+    değişken guc = seviye * 10 + can;
     yazdir("💪 Toplam Güç: {}", guc);
 }
 </code></pre>
@@ -81,9 +81,9 @@
                     <p><strong>🎯 <span class="tr">Kutu Tipleri:</span><span class="en" style="display:none;">Box Types:</span></strong></p>
                     <ul>
                         <li>📝 <code>metin</code> = Yazılar için ("Merhaba")</li>
-                        <li>🔢 <code>tamsayi</code> = Tam sayılar için (42, -5)</li>
-                        <li>💧 <code>ondalik</code> = Küsuratlı sayılar (3.14)</li>
-                        <li>✅ <code>mantiksal</code> = Evet/Hayır (dogru/yanlis)</li>
+                        <li>🔢 <code>tamsayı</code> = Tam sayılar için (42, -5)</li>
+                        <li>💧 <code>ondalık</code> = Küsuratlı sayılar (3.14)</li>
+                        <li>✅ <code>mantıksal</code> = Evet/Hayır (doğru/yanlış)</li>
                     </ul>
                 </div>
             </section>
@@ -94,7 +94,7 @@
                     <div class="code-header"><span class="code-lang">🏆 puan.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>fonksiyon ana() {
     // 🔓 "mut" = değiştirilebilir (mutable)
-    degisken mut puan = 0;
+    değişken mut puan = 0;
     yazdir("🎮 Oyun başladı! Puan: {}", puan);
     
     // Düşman yendin! +100 puan
@@ -132,10 +132,10 @@
                     <div class="code-header"><span class="code-lang">BERK (Türkçe)</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>fonksiyon ana() {
     // Değişken tanımlama
-    degisken isim = "Ahmet";
-    degisken yas = 17;
-    degisken boy = 1.75;
-    degisken ogrenci = dogru;
+    değişken isim = "Ahmet";
+    değişken yas = 17;
+    değişken boy = 1.75;
+    değişken ogrenci = doğru;
     
     yazdir("İsim: {}", isim);
     yazdir("Yaş: {} | Boy: {}m", yas, boy);
@@ -156,14 +156,14 @@
                     <div class="code-header"><span class="code-lang">📊 notlar.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
                     <pre><code>fonksiyon ana() {
     // Ders notları
-    degisken matematik = 85.5;
-    degisken fizik = 78.0;
-    degisken kimya = 92.0;
-    degisken biyoloji = 88.5;
+    değişken matematik = 85.5;
+    değişken fizik = 78.0;
+    değişken kimya = 92.0;
+    değişken biyoloji = 88.5;
     
     // Ortalama hesapla
-    degisken toplam = matematik + fizik + kimya + biyoloji;
-    degisken ortalama = toplam / 4.0;
+    değişken toplam = matematik + fizik + kimya + biyoloji;
+    değişken ortalama = toplam / 4.0;
     
     yazdir("📚 Karne Raporu");
     yazdir("─────────────────────");
@@ -325,7 +325,7 @@ function main() {
         <section class="lesson-section">
             <h2>📌 <span class="tr">Özet</span><span class="en" style="display:none;">Summary</span></h2>
             <ul>
-                <li><span class="tr"><code>degisken</code> / <code>let</code> ile değişken tanımlanır.</span><span class="en" style="display:none;"><code>degisken</code> / <code>let</code> declares variables.</span></li>
+                <li><span class="tr"><code>değişken</code> / <code>let</code> ile değişken tanımlanır.</span><span class="en" style="display:none;"><code>değişken</code> / <code>let</code> declares variables.</span></li>
                 <li><span class="tr"><code>sabit</code> / <code>const</code> ile sabit değer tanımlanır.</span><span class="en" style="display:none;"><code>sabit</code> / <code>const</code> declares constants.</span></li>
                 <li><span class="tr">Varsayılan olarak değiştirilemez; <code>mut</code> ile değiştirilebilir.</span><span class="en" style="display:none;">Immutable by default; use <code>mut</code> for mutability.</span></li>
             </ul>
@@ -339,4 +339,6 @@ function main() {
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
 
