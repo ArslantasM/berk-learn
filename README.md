@@ -1,7 +1,7 @@
 # BERK Learn - Sistem Programlama 101
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ArslantasM/berk-learn/main/assets/berk-logo.svg" width="180" alt="BERK Logo">
+  <img src="https://raw.githubusercontent.com/ArslantasM/berk-learn/main/assets/logo.png" width="180" alt="BERK Logo">
 </p>
 
 <p align="center">
