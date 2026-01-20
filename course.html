@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BERK ile Sistem Programlama 101</title>
+    <meta name="description" content="Türkçe ve İngilizce sözdizimi ile modern sistem programlama öğrenin. Ortaokul, lise ve üniversite seviyelerinde 10 interaktif ders.">
+    <meta name="keywords" content="BERK, programlama, Türkçe programlama, sistem programlama, coding, Turkish programming language">
+    <meta name="author" content="BERK Programming Language">
+    <meta name="robots" content="index, follow">
+    
+    <!-- AI/LLM Friendly Meta Tags -->
+    <meta name="ai-content-type" content="educational-course">
+    <meta name="ai-language" content="tr,en">
+    <meta name="ai-audience" content="middle-school,high-school,university">
+    <link rel="alternate" type="application/json" href="course.json" title="Course Metadata">
+    <link rel="alternate" type="text/plain" href="llms.txt" title="LLM Instructions">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="BERK ile Sistem Programlama 101">
+    <meta property="og:description" content="Türkçe/İngilizce çift dilli sistem programlama kursu">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="tr_TR">
+    <meta property="og:locale:alternate" content="en_US">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "BERK ile Sistem Programlama 101",
+        "description": "Türkçe ve İngilizce sözdizimi ile modern sistem programlama öğrenin",
+        "provider": {
+            "@type": "Organization",
+            "name": "BERK Programming Language"
+        },
+        "educationalLevel": ["Middle School", "High School", "University"],
+        "inLanguage": ["tr", "en"],
+        "numberOfLessons": 10,
+        "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "online"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- AI Navigation Hint: Main navigation with level selector (ortaokul/lise/universite) and language toggle (TR/EN) -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;" title="Dil Seçimi / Language Selection">
+                <span class="logo">🦅</span>
+                <span class="brand-text">BERK 101</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="#dersler">Dersler</a>
+            <a href="#hakkinda">Hakkında</a>
+            <a href="https://github.com/ArslantasM/berk" target="_blank">GitHub</a>
+        </div>        <div class="level-switch">
+            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
+            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
+            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
+        </div>        <div class="lang-switch">
+            <button class="lang-btn active" data-lang="tr">TR</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="tr">BERK ile Sistem Programlama 101</span>
+                <span class="en" style="display:none;">Systems Programming 101 with BERK</span>
+            </h1>
+            <p class="hero-subtitle">
+                <span class="tr">Türkçe/İngilizce Çift Dilli • Modern • Güvenli</span>
+                <span class="en" style="display:none;">Turkish/English Bilingual • Modern • Safe</span>
+            </p>
+            <p class="hero-description">
+                <span class="tr">
+                    10 ders ile sistem programlamaya giriş yapın. 
+                    Türkçe anahtar kelimelerle başlayın, İngilizce ekosistemine yumuşak geçiş yapın.
+                </span>
+                <span class="en" style="display:none;">
+                    Start your journey into systems programming with 10 lessons.
+                    Begin with Turkish keywords, smoothly transition to the English ecosystem.
+                </span>
+            </p>
+            <a href="ders01.html" class="cta-button">
+                <span class="tr">Kursa Başla →</span>
+                <span class="en" style="display:none;">Start Course →</span>
+            </a>
+            
+            <!-- Seviye Bilgi Kartları -->
+            <div class="level-info-box">
+                <div class="level-info ortaokul-info">
+                    <span class="level-badge">🎮 Ortaokul (11-14 yaş)</span>
+                    <span class="tr">Oyunlar, karakterler ve eğlenceli projelerle kodlama öğren!</span>
+                    <span class="en" style="display:none;">Learn coding with games, characters, and fun projects!</span>
+                </div>
+                <div class="level-info lise-info" style="display:flex;">
+                    <span class="level-badge">📚 Lise (15-18 yaş)</span>
+                    <span class="tr">Günlük yaşam problemleri ve pratik uygulamalar</span>
+                    <span class="en" style="display:none;">Real-life problems and practical applications</span>
+                </div>
+                <div class="level-info universite-info">
+                    <span class="level-badge">🎓 Üniversite (18+ yaş)</span>
+                    <span class="tr">Endüstriyel uygulamalar ve ileri düzey kavramlar</span>
+                    <span class="en" style="display:none;">Industrial applications and advanced concepts</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-code">
+            <pre><code><span class="keyword">fonksiyon</span> <span class="function">ana</span>() {
+    <span class="keyword">degisken</span> mesaj = <span class="string">"Merhaba, Dünya!"</span>;
+    <span class="function">yazdir</span>(mesaj);
+}
+
+<span class="comment">// English syntax also works:</span>
+<span class="keyword">function</span> <span class="function">main</span>() {
+    <span class="keyword">let</span> message = <span class="string">"Hello, World!"</span>;
+    <span class="function">print</span>(message);
+}</code></pre>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🇹🇷</div>
+            <h3>
+                <span class="tr">Türkçe Sözdizimi</span>
+                <span class="en" style="display:none;">Turkish Syntax</span>
+            </h3>
+            <p>
+                <span class="tr">Programlamaya ana dilinizde başlayın. <code>fonksiyon</code>, <code>degisken</code>, <code>eger</code> gibi anahtar kelimeler.</span>
+                <span class="en" style="display:none;">Start programming in your native language. Keywords like <code>fonksiyon</code>, <code>degisken</code>, <code>eger</code>.</span>
+            </p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>
+                <span class="tr">Bellek Güvenliği</span>
+                <span class="en" style="display:none;">Memory Safety</span>
+            </h3>
+            <p>
+                <span class="tr">Ownership sistemi ile güvenli kod yazın. Derleyici hataları önler.</span>
+                <span class="en" style="display:none;">Write safe code with ownership system. Compiler prevents errors.</span>
+            </p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>
+                <span class="tr">Yüksek Performans</span>
+                <span class="en" style="display:none;">High Performance</span>
+            </h3>
+            <p>
+                <span class="tr">LLVM backend ile native kod üretimi. C/C++ seviyesinde hız.</span>
+                <span class="en" style="display:none;">Native code generation with LLVM backend. C/C++ level speed.</span>
+            </p>
+        </div>
+    </section>
+
+    <section id="dersler" class="lessons">
+        <h2>
+            <span class="tr">📚 Ders Planı</span>
+            <span class="en" style="display:none;">📚 Course Outline</span>
+        </h2>
+        <div class="lessons-grid">
+            <a href="ders01.html" class="lesson-card">
+                <span class="lesson-number">01</span>
+                <h3>
+                    <span class="tr">Merhaba Dünya</span>
+                    <span class="en" style="display:none;">Hello World</span>
+                </h3>
+                <p>
+                    <span class="tr">İlk programınız, çıktı alma, temel yapı</span>
+                    <span class="en" style="display:none;">Your first program, output, basic structure</span>
+                </p>
+            </a>
+            <a href="ders02.html" class="lesson-card">
+                <span class="lesson-number">02</span>
+                <h3>
+                    <span class="tr">Değişkenler ve Tipler</span>
+                    <span class="en" style="display:none;">Variables and Types</span>
+                </h3>
+                <p>
+                    <span class="tr">Veri tipleri, değişken tanımlama, sabitler</span>
+                    <span class="en" style="display:none;">Data types, variable declaration, constants</span>
+                </p>
+            </a>
+            <a href="ders03.html" class="lesson-card">
+                <span class="lesson-number">03</span>
+                <h3>
+                    <span class="tr">Kontrol Akışı</span>
+                    <span class="en" style="display:none;">Control Flow</span>
+                </h3>
+                <p>
+                    <span class="tr">Koşullar (if/else), döngüler (loop, while, for)</span>
+                    <span class="en" style="display:none;">Conditions (if/else), loops (loop, while, for)</span>
+                </p>
+            </a>
+            <a href="ders04.html" class="lesson-card">
+                <span class="lesson-number">04</span>
+                <h3>
+                    <span class="tr">Fonksiyonlar</span>
+                    <span class="en" style="display:none;">Functions</span>
+                </h3>
+                <p>
+                    <span class="tr">Fonksiyon tanımlama, parametreler, dönüş değerleri</span>
+                    <span class="en" style="display:none;">Function definition, parameters, return values</span>
+                </p>
+            </a>
+            <a href="ders05.html" class="lesson-card">
+                <span class="lesson-number">05</span>
+                <h3>
+                    <span class="tr">Yapılar (Struct)</span>
+                    <span class="en" style="display:none;">Structures (Struct)</span>
+                </h3>
+                <p>
+                    <span class="tr">Özel veri tipleri oluşturma, alanlar, metotlar</span>
+                    <span class="en" style="display:none;">Creating custom data types, fields, methods</span>
+                </p>
+            </a>
+            <a href="ders06.html" class="lesson-card">
+                <span class="lesson-number">06</span>
+                <h3>
+                    <span class="tr">Enum ve Pattern Matching</span>
+                    <span class="en" style="display:none;">Enum and Pattern Matching</span>
+                </h3>
+                <p>
+                    <span class="tr">Numaralandırma, match/esle ifadesi</span>
+                    <span class="en" style="display:none;">Enumerations, match expression</span>
+                </p>
+            </a>
+            <a href="ders07.html" class="lesson-card">
+                <span class="lesson-number">07</span>
+                <h3>
+                    <span class="tr">Hata Yönetimi</span>
+                    <span class="en" style="display:none;">Error Handling</span>
+                </h3>
+                <p>
+                    <span class="tr">Result ve Option tipleri, hata işleme</span>
+                    <span class="en" style="display:none;">Result and Option types, error handling</span>
+                </p>
+            </a>
+            <a href="ders08.html" class="lesson-card">
+                <span class="lesson-number">08</span>
+                <h3>
+                    <span class="tr">Ownership Temelleri</span>
+                    <span class="en" style="display:none;">Ownership Basics</span>
+                </h3>
+                <p>
+                    <span class="tr">Sahiplik, ödünç alma, yaşam süreleri</span>
+                    <span class="en" style="display:none;">Ownership, borrowing, lifetimes</span>
+                </p>
+            </a>
+            <a href="ders09.html" class="lesson-card">
+                <span class="lesson-number">09</span>
+                <h3>
+                    <span class="tr">Koleksiyonlar</span>
+                    <span class="en" style="display:none;">Collections</span>
+                </h3>
+                <p>
+                    <span class="tr">Vektörler, diziler, hash map kullanımı</span>
+                    <span class="en" style="display:none;">Vectors, arrays, hash map usage</span>
+                </p>
+            </a>
+            <a href="ders10.html" class="lesson-card">
+                <span class="lesson-number">10</span>
+                <h3>
+                    <span class="tr">Mini Proje</span>
+                    <span class="en" style="display:none;">Mini Project</span>
+                </h3>
+                <p>
+                    <span class="tr">Öğrendiklerinizi birleştirin: CLI uygulaması</span>
+                    <span class="en" style="display:none;">Combine what you learned: CLI application</span>
+                </p>
+            </a>
+        </div>
+    </section>
+
+    <section id="hakkinda" class="about">
+        <h2>
+            <span class="tr">BERK Hakkında</span>
+            <span class="en" style="display:none;">About BERK</span>
+        </h2>
+        <div class="about-content">
+            <p>
+                <span class="tr">
+                    BERK, Türkçe/İngilizce çift dilli sözdizimi sunan modern bir sistem programlama dilidir. 
+                    Rust'tan ilham alan bellek güvenliği, LLVM ile yüksek performans ve gömülü sistemler için 
+                    deterministik tasarım sunar.
+                </span>
+                <span class="en" style="display:none;">
+                    BERK is a modern systems programming language with Turkish/English bilingual syntax.
+                    It offers Rust-inspired memory safety, high performance with LLVM, and deterministic 
+                    design for embedded systems.
+                </span>
+            </p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-value">318K+</span>
+                    <span class="stat-label">
+                        <span class="tr">Satır Kod</span>
+                        <span class="en" style="display:none;">Lines of Code</span>
+                    </span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">400+</span>
+                    <span class="stat-label">
+                        <span class="tr">Stdlib Modülü</span>
+                        <span class="en" style="display:none;">Stdlib Modules</span>
+                    </span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">9</span>
+                    <span class="stat-label">
+                        <span class="tr">Embedded Platform</span>
+                        <span class="en" style="display:none;">Embedded Platforms</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>
+            <span class="tr">© 2026 BERK Projesi • GPL-3.0 Lisansı</span>
+            <span class="en" style="display:none;">© 2026 BERK Project • GPL-3.0 License</span>
+        </p>
+        <p>
+            <a href="https://github.com/ArslantasM/berk">GitHub</a> •
+            <a href="https://www.berk.tech">Website</a>
+        </p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+

@@ -3,342 +3,588 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BERK ile Sistem Programlama 101</title>
-    <meta name="description" content="Türkçe ve İngilizce sözdizimi ile modern sistem programlama öğrenin. Ortaokul, lise ve üniversite seviyelerinde 10 interaktif ders.">
-    <meta name="keywords" content="BERK, programlama, Türkçe programlama, sistem programlama, coding, Turkish programming language">
-    <meta name="author" content="BERK Programming Language">
-    <meta name="robots" content="index, follow">
-    
-    <!-- AI/LLM Friendly Meta Tags -->
-    <meta name="ai-content-type" content="educational-course">
-    <meta name="ai-language" content="tr,en">
-    <meta name="ai-audience" content="middle-school,high-school,university">
-    <link rel="alternate" type="application/json" href="course.json" title="Course Metadata">
-    <link rel="alternate" type="text/plain" href="llms.txt" title="LLM Instructions">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="BERK ile Sistem Programlama 101">
-    <meta property="og:description" content="Türkçe/İngilizce çift dilli sistem programlama kursu">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="tr_TR">
-    <meta property="og:locale:alternate" content="en_US">
-    
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="description" content="BERK ile Sistem Programlama 101 - Modern sistem programlama öğren. Dil seçimi yapın.">
+    <meta name="keywords" content="BERK, programming, eğitim, kurs, Türkçe, English">
+    <meta name="theme-color" content="#0a0e1a">
+    <title>BERK 101 - Dil Seçin / Choose Language</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Course",
-        "name": "BERK ile Sistem Programlama 101",
-        "description": "Türkçe ve İngilizce sözdizimi ile modern sistem programlama öğrenin",
-        "provider": {
-            "@type": "Organization",
-            "name": "BERK Programming Language"
-        },
-        "educationalLevel": ["Middle School", "High School", "University"],
-        "inLanguage": ["tr", "en"],
-        "numberOfLessons": 10,
-        "hasCourseInstance": {
-            "@type": "CourseInstance",
-            "courseMode": "online"
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
-    </script>
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e1a;
+            color: #e8eaed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.6;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .gradient-1 {
+            background: radial-gradient(circle, #4a90e2 0%, transparent 70%);
+            top: -250px;
+            left: -250px;
+            animation-delay: 0s;
+        }
+
+        .gradient-2 {
+            background: radial-gradient(circle, #5ba3f5 0%, transparent 70%);
+            bottom: -250px;
+            right: -250px;
+            animation-delay: 5s;
+        }
+
+        .gradient-3 {
+            background: radial-gradient(circle, #764ba2 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-30px, 50px) scale(0.9);
+            }
+            75% {
+                transform: translate(40px, 30px) scale(1.05);
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 40px 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo */
+        .logo-container {
+            margin-bottom: 30px;
+            animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            filter: drop-shadow(0 10px 40px rgba(74, 144, 226, 0.4));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+            filter: drop-shadow(0 15px 50px rgba(74, 144, 226, 0.6));
+        }
+
+        /* Text Content */
+        .title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #4a90e2 0%, #5ba3f5 50%, #88c4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        .title-101 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #b8bcc8;
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.2);
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #8b919e;
+            font-weight: 400;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .subtitle-en {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: #6b7280;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        /* Version Badge */
+        .version-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(74, 144, 226, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #5ba3f5;
+            margin-bottom: 25px;
+            font-weight: 600;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(74, 144, 226, 0);
+            }
+        }
+
+        /* Language Section */
+        .language-section {
+            margin-top: 40px;
+        }
+
+        .language-title {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* Language Cards */
+        .language-selector {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .lang-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(74, 144, 226, 0.3);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .lang-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .lang-card:hover::before {
+            left: 100%;
+        }
+
+        .lang-card:hover {
+            transform: translateY(-5px);
+            border-color: #4a90e2;
+            background: rgba(74, 144, 226, 0.12);
+            box-shadow: 0 10px 40px rgba(74, 144, 226, 0.4);
+        }
+
+        .lang-flag {
+            font-size: 1.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .lang-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e8eaed;
+            letter-spacing: 0.5px;
+        }
+
+        /* Level indicators */
+        .levels-preview {
+            margin-top: 50px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .levels-title {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .levels-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .level-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .level-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .level-icon {
+            font-size: 1.4rem;
+        }
+
+        .level-text {
+            font-size: 0.9rem;
+            color: #b8bcc8;
+        }
+
+        .level-age {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: #4b5563;
+        }
+
+        .footer a {
+            color: #5ba3f5;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #88c4ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                width: 140px;
+                height: 140px;
+            }
+
+            .title {
+                font-size: 3.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                padding: 0 30px;
+            }
+
+            .title {
+                font-size: 3.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                padding: 0 30px;
+            }
+
+            .version-badge {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+
+            .levels-grid {
+                gap: 15px;
+            }
+
+            .level-item {
+                padding: 8px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+                padding: 0 20px;
+            }
+
+            .language-selector {
+                gap: 15px;
+            }
+
+            .lang-card {
+                padding: 14px 28px;
+                min-width: 100px;
+            }
+
+            .lang-name {
+                font-size: 1rem;
+            }
+        }
+
+        /* Accessibility */
+        .lang-card:focus {
+            outline: 3px solid #4a90e2;
+            outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- AI Navigation Hint: Main navigation with level selector (ortaokul/lise/universite) and language toggle (TR/EN) -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <a href="landing.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;" title="Dil Seçimi / Language Selection">
-                <span class="logo">🦅</span>
-                <span class="brand-text">BERK 101</span>
-            </a>
-        </div>
-        <div class="nav-links">
-            <a href="#dersler">Dersler</a>
-            <a href="#hakkinda">Hakkında</a>
-            <a href="https://github.com/ArslantasM/berk" target="_blank">GitHub</a>
-        </div>        <div class="level-switch">
-            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
-            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
-            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
-        </div>        <div class="lang-switch">
-            <button class="lang-btn active" data-lang="tr">TR</button>
-            <button class="lang-btn" data-lang="en">EN</button>
-        </div>
-    </nav>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="bg-gradient gradient-1"></div>
+        <div class="bg-gradient gradient-2"></div>
+        <div class="bg-gradient gradient-3"></div>
+    </div>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="tr">BERK ile Sistem Programlama 101</span>
-                <span class="en" style="display:none;">Systems Programming 101 with BERK</span>
-            </h1>
-            <p class="hero-subtitle">
-                <span class="tr">Türkçe/İngilizce Çift Dilli • Modern • Güvenli</span>
-                <span class="en" style="display:none;">Turkish/English Bilingual • Modern • Safe</span>
-            </p>
-            <p class="hero-description">
-                <span class="tr">
-                    10 ders ile sistem programlamaya giriş yapın. 
-                    Türkçe anahtar kelimelerle başlayın, İngilizce ekosistemine yumuşak geçiş yapın.
-                </span>
-                <span class="en" style="display:none;">
-                    Start your journey into systems programming with 10 lessons.
-                    Begin with Turkish keywords, smoothly transition to the English ecosystem.
-                </span>
-            </p>
-            <a href="ders01.html" class="cta-button">
-                <span class="tr">Kursa Başla →</span>
-                <span class="en" style="display:none;">Start Course →</span>
-            </a>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="version-badge">📚 10 Ders • 3 Seviye • Ücretsiz</div>
+
+        <div class="logo-container">
+            <svg class="logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <!-- Left Brace -->
+                <path d="M 80 128 Q 60 128 60 148 L 60 210 Q 60 230 40 230 Q 60 230 60 250 L 60 312 Q 60 332 80 332"
+                      fill="none" stroke="#5ba3f5" stroke-width="24" stroke-linecap="round"/>
+
+                <!-- Right Brace -->
+                <path d="M 432 128 Q 452 128 452 148 L 452 210 Q 452 230 472 230 Q 452 230 452 250 L 452 312 Q 452 332 432 332"
+                      fill="none" stroke="#5ba3f5" stroke-width="24" stroke-linecap="round"/>
+
+                <!-- Lightning Bolt (10% larger, centered) -->
+                <g transform="translate(256, 240) scale(1.10) translate(-256, -240)">
+                    <path d="M 280 100 L 200 250 L 250 250 L 230 380 L 340 200 L 280 200 Z"
+                          fill="url(#lightning-gradient)" stroke="#ffffff" stroke-width="4"/>
+                </g>
+
+                <!-- Gradient Definition -->
+                <defs>
+                    <linearGradient id="lightning-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#5ba3f5;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#4a90e2;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <h1 class="title">BERK</h1>
+        <div class="title-101">LEARN • ÖĞREN</div>
+        
+        <p class="subtitle">Sistem Programlama 101 / Systems Programming 101</p>
+
+        <div class="language-section">
+            <p class="language-title">Dil Seçin / Choose Language</p>
             
-            <!-- Seviye Bilgi Kartları -->
-            <div class="level-info-box">
-                <div class="level-info ortaokul-info">
-                    <span class="level-badge">🎮 Ortaokul (11-14 yaş)</span>
-                    <span class="tr">Oyunlar, karakterler ve eğlenceli projelerle kodlama öğren!</span>
-                    <span class="en" style="display:none;">Learn coding with games, characters, and fun projects!</span>
+            <div class="language-selector">
+                <a href="course.html" class="lang-card" data-lang="tr" aria-label="Türkçe olarak devam et">
+                    <span class="lang-name">TR</span>
+                </a>
+
+                <a href="course.html" class="lang-card" data-lang="en" aria-label="Continue in English">
+                    <span class="lang-name">EN</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="levels-preview">
+            <p class="levels-title">Tüm Seviyelere Uygun / For All Levels</p>
+            <div class="levels-grid">
+                <div class="level-item">
+                    <span class="level-icon">🎮</span>
+                    <div>
+                        <div class="level-text">Ortaokul</div>
+                        <div class="level-age">11-14 yaş</div>
+                    </div>
                 </div>
-                <div class="level-info lise-info" style="display:flex;">
-                    <span class="level-badge">📚 Lise (15-18 yaş)</span>
-                    <span class="tr">Günlük yaşam problemleri ve pratik uygulamalar</span>
-                    <span class="en" style="display:none;">Real-life problems and practical applications</span>
+                <div class="level-item">
+                    <span class="level-icon">📚</span>
+                    <div>
+                        <div class="level-text">Lise</div>
+                        <div class="level-age">15-18 yaş</div>
+                    </div>
                 </div>
-                <div class="level-info universite-info">
-                    <span class="level-badge">🎓 Üniversite (18+ yaş)</span>
-                    <span class="tr">Endüstriyel uygulamalar ve ileri düzey kavramlar</span>
-                    <span class="en" style="display:none;">Industrial applications and advanced concepts</span>
+                <div class="level-item">
+                    <span class="level-icon">🎓</span>
+                    <div>
+                        <div class="level-text">Üniversite</div>
+                        <div class="level-age">18+ yaş</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="hero-code">
-            <pre><code><span class="keyword">fonksiyon</span> <span class="function">ana</span>() {
-    <span class="keyword">degisken</span> mesaj = <span class="string">"Merhaba, Dünya!"</span>;
-    <span class="function">yazdir</span>(mesaj);
-}
 
-<span class="comment">// English syntax also works:</span>
-<span class="keyword">function</span> <span class="function">main</span>() {
-    <span class="keyword">let</span> message = <span class="string">"Hello, World!"</span>;
-    <span class="function">print</span>(message);
-}</code></pre>
+        <div class="footer">
+            <p>Powered by <a href="https://github.com/ArslantasM/berk" target="_blank">BERK Programming Language</a></p>
         </div>
-    </header>
+    </div>
 
-    <section class="features">
-        <div class="feature-card">
-            <div class="feature-icon">🇹🇷</div>
-            <h3>
-                <span class="tr">Türkçe Sözdizimi</span>
-                <span class="en" style="display:none;">Turkish Syntax</span>
-            </h3>
-            <p>
-                <span class="tr">Programlamaya ana dilinizde başlayın. <code>fonksiyon</code>, <code>degisken</code>, <code>eger</code> gibi anahtar kelimeler.</span>
-                <span class="en" style="display:none;">Start programming in your native language. Keywords like <code>fonksiyon</code>, <code>degisken</code>, <code>eger</code>.</span>
-            </p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🔒</div>
-            <h3>
-                <span class="tr">Bellek Güvenliği</span>
-                <span class="en" style="display:none;">Memory Safety</span>
-            </h3>
-            <p>
-                <span class="tr">Ownership sistemi ile güvenli kod yazın. Derleyici hataları önler.</span>
-                <span class="en" style="display:none;">Write safe code with ownership system. Compiler prevents errors.</span>
-            </p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">⚡</div>
-            <h3>
-                <span class="tr">Yüksek Performans</span>
-                <span class="en" style="display:none;">High Performance</span>
-            </h3>
-            <p>
-                <span class="tr">LLVM backend ile native kod üretimi. C/C++ seviyesinde hız.</span>
-                <span class="en" style="display:none;">Native code generation with LLVM backend. C/C++ level speed.</span>
-            </p>
-        </div>
-    </section>
+    <script>
+        // Keyboard navigation for language cards
+        document.querySelectorAll('.lang-card').forEach(card => {
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    selectLanguage(this.dataset.lang);
+                }
+            });
 
-    <section id="dersler" class="lessons">
-        <h2>
-            <span class="tr">📚 Ders Planı</span>
-            <span class="en" style="display:none;">📚 Course Outline</span>
-        </h2>
-        <div class="lessons-grid">
-            <a href="ders01.html" class="lesson-card">
-                <span class="lesson-number">01</span>
-                <h3>
-                    <span class="tr">Merhaba Dünya</span>
-                    <span class="en" style="display:none;">Hello World</span>
-                </h3>
-                <p>
-                    <span class="tr">İlk programınız, çıktı alma, temel yapı</span>
-                    <span class="en" style="display:none;">Your first program, output, basic structure</span>
-                </p>
-            </a>
-            <a href="ders02.html" class="lesson-card">
-                <span class="lesson-number">02</span>
-                <h3>
-                    <span class="tr">Değişkenler ve Tipler</span>
-                    <span class="en" style="display:none;">Variables and Types</span>
-                </h3>
-                <p>
-                    <span class="tr">Veri tipleri, değişken tanımlama, sabitler</span>
-                    <span class="en" style="display:none;">Data types, variable declaration, constants</span>
-                </p>
-            </a>
-            <a href="ders03.html" class="lesson-card">
-                <span class="lesson-number">03</span>
-                <h3>
-                    <span class="tr">Kontrol Akışı</span>
-                    <span class="en" style="display:none;">Control Flow</span>
-                </h3>
-                <p>
-                    <span class="tr">Koşullar (if/else), döngüler (loop, while, for)</span>
-                    <span class="en" style="display:none;">Conditions (if/else), loops (loop, while, for)</span>
-                </p>
-            </a>
-            <a href="ders04.html" class="lesson-card">
-                <span class="lesson-number">04</span>
-                <h3>
-                    <span class="tr">Fonksiyonlar</span>
-                    <span class="en" style="display:none;">Functions</span>
-                </h3>
-                <p>
-                    <span class="tr">Fonksiyon tanımlama, parametreler, dönüş değerleri</span>
-                    <span class="en" style="display:none;">Function definition, parameters, return values</span>
-                </p>
-            </a>
-            <a href="ders05.html" class="lesson-card">
-                <span class="lesson-number">05</span>
-                <h3>
-                    <span class="tr">Yapılar (Struct)</span>
-                    <span class="en" style="display:none;">Structures (Struct)</span>
-                </h3>
-                <p>
-                    <span class="tr">Özel veri tipleri oluşturma, alanlar, metotlar</span>
-                    <span class="en" style="display:none;">Creating custom data types, fields, methods</span>
-                </p>
-            </a>
-            <a href="ders06.html" class="lesson-card">
-                <span class="lesson-number">06</span>
-                <h3>
-                    <span class="tr">Enum ve Pattern Matching</span>
-                    <span class="en" style="display:none;">Enum and Pattern Matching</span>
-                </h3>
-                <p>
-                    <span class="tr">Numaralandırma, match/esle ifadesi</span>
-                    <span class="en" style="display:none;">Enumerations, match expression</span>
-                </p>
-            </a>
-            <a href="ders07.html" class="lesson-card">
-                <span class="lesson-number">07</span>
-                <h3>
-                    <span class="tr">Hata Yönetimi</span>
-                    <span class="en" style="display:none;">Error Handling</span>
-                </h3>
-                <p>
-                    <span class="tr">Result ve Option tipleri, hata işleme</span>
-                    <span class="en" style="display:none;">Result and Option types, error handling</span>
-                </p>
-            </a>
-            <a href="ders08.html" class="lesson-card">
-                <span class="lesson-number">08</span>
-                <h3>
-                    <span class="tr">Ownership Temelleri</span>
-                    <span class="en" style="display:none;">Ownership Basics</span>
-                </h3>
-                <p>
-                    <span class="tr">Sahiplik, ödünç alma, yaşam süreleri</span>
-                    <span class="en" style="display:none;">Ownership, borrowing, lifetimes</span>
-                </p>
-            </a>
-            <a href="ders09.html" class="lesson-card">
-                <span class="lesson-number">09</span>
-                <h3>
-                    <span class="tr">Koleksiyonlar</span>
-                    <span class="en" style="display:none;">Collections</span>
-                </h3>
-                <p>
-                    <span class="tr">Vektörler, diziler, hash map kullanımı</span>
-                    <span class="en" style="display:none;">Vectors, arrays, hash map usage</span>
-                </p>
-            </a>
-            <a href="ders10.html" class="lesson-card">
-                <span class="lesson-number">10</span>
-                <h3>
-                    <span class="tr">Mini Proje</span>
-                    <span class="en" style="display:none;">Mini Project</span>
-                </h3>
-                <p>
-                    <span class="tr">Öğrendiklerinizi birleştirin: CLI uygulaması</span>
-                    <span class="en" style="display:none;">Combine what you learned: CLI application</span>
-                </p>
-            </a>
-        </div>
-    </section>
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                selectLanguage(this.dataset.lang);
+            });
+        });
 
-    <section id="hakkinda" class="about">
-        <h2>
-            <span class="tr">BERK Hakkında</span>
-            <span class="en" style="display:none;">About BERK</span>
-        </h2>
-        <div class="about-content">
-            <p>
-                <span class="tr">
-                    BERK, Türkçe/İngilizce çift dilli sözdizimi sunan modern bir sistem programlama dilidir. 
-                    Rust'tan ilham alan bellek güvenliği, LLVM ile yüksek performans ve gömülü sistemler için 
-                    deterministik tasarım sunar.
-                </span>
-                <span class="en" style="display:none;">
-                    BERK is a modern systems programming language with Turkish/English bilingual syntax.
-                    It offers Rust-inspired memory safety, high performance with LLVM, and deterministic 
-                    design for embedded systems.
-                </span>
-            </p>
-            <div class="stats">
-                <div class="stat">
-                    <span class="stat-value">318K+</span>
-                    <span class="stat-label">
-                        <span class="tr">Satır Kod</span>
-                        <span class="en" style="display:none;">Lines of Code</span>
-                    </span>
-                </div>
-                <div class="stat">
-                    <span class="stat-value">400+</span>
-                    <span class="stat-label">
-                        <span class="tr">Stdlib Modülü</span>
-                        <span class="en" style="display:none;">Stdlib Modules</span>
-                    </span>
-                </div>
-                <div class="stat">
-                    <span class="stat-value">9</span>
-                    <span class="stat-label">
-                        <span class="tr">Embedded Platform</span>
-                        <span class="en" style="display:none;">Embedded Platforms</span>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </section>
+        function selectLanguage(lang) {
+            // Save language preference
+            localStorage.setItem('berk-lang', lang);
+            
+            // Add click animation
+            event.target.closest('.lang-card').style.transform = 'scale(0.95)';
+            
+            // Navigate to course index
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 200);
+        }
 
-    <footer class="footer">
-        <p>
-            <span class="tr">© 2026 BERK Projesi • GPL-3.0 Lisansı</span>
-            <span class="en" style="display:none;">© 2026 BERK Project • GPL-3.0 License</span>
-        </p>
-        <p>
-            <a href="https://github.com/ArslantasM/berk">GitHub</a> •
-            <a href="https://www.berk.tech">Website</a>
-        </p>
-    </footer>
+        // Detect browser language and highlight preferred option
+        const userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        let preferredLang = userLang.startsWith('tr') ? 'tr' : 'en';
+        
+        // Check if already saved
+        const savedLang = localStorage.getItem('berk-lang');
+        if (savedLang) {
+            preferredLang = savedLang;
+        }
 
-    <script src="js/main.js"></script>
+        const preferred = document.querySelector(`[data-lang="${preferredLang}"]`);
+        if (preferred) {
+            preferred.style.borderColor = 'rgba(74, 144, 226, 0.5)';
+            preferred.style.background = 'rgba(74, 144, 226, 0.08)';
+        }
+
+        // Parallax effect for background
+        document.addEventListener('mousemove', (e) => {
+            const gradients = document.querySelectorAll('.bg-gradient');
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            
+            gradients.forEach((gradient, i) => {
+                const factor = (i + 1) * 0.3;
+                gradient.style.transform += ` translate(${x * factor}px, ${y * factor}px)`;
+            });
+        });
+    </script>
 </body>
 </html>
+
