@@ -1,0 +1,31 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background Circle -->
+    <circle cx="256" cy="256" r="240" fill="#0a0f1c"/>
+    
+    <!-- Left Brace -->
+    <path d="M 100 160 Q 80 160 80 180 L 80 230 Q 80 250 60 250 Q 80 250 80 270 L 80 320 Q 80 340 100 340"
+          fill="none" stroke="#5ba3f5" stroke-width="20" stroke-linecap="round"/>
+
+    <!-- Right Brace -->
+    <path d="M 412 160 Q 432 160 432 180 L 432 230 Q 432 250 452 250 Q 432 250 432 270 L 432 320 Q 432 340 412 340"
+          fill="none" stroke="#5ba3f5" stroke-width="20" stroke-linecap="round"/>
+
+    <!-- Lightning Bolt -->
+    <path d="M 280 120 L 200 260 L 250 260 L 230 380 L 340 220 L 280 220 Z"
+          fill="url(#lightning-gradient)" stroke="#ffffff" stroke-width="3"/>
+
+    <!-- Book/Learn Icon -->
+    <g transform="translate(256, 420)">
+        <path d="M -40 -15 L 0 -25 L 40 -15 L 40 15 L 0 25 L -40 15 Z" fill="#5ba3f5" opacity="0.8"/>
+        <line x1="0" y1="-25" x2="0" y2="25" stroke="#ffffff" stroke-width="2"/>
+    </g>
+
+    <!-- Gradient Definition -->
+    <defs>
+        <linearGradient id="lightning-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#5ba3f5;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#4a90e2;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+</svg>

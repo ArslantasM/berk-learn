@@ -1,0 +1,156 @@
+# BERK Programming Language - Learn Course
+# This file helps AI agents understand and navigate this educational content.
+
+> This is an educational course for learning the BERK programming language.
+> BERK is a bilingual (Turkish/English) systems programming language.
+
+## Course Information
+- Title: BERK ile Sistem Programlama 101 / Systems Programming 101 with BERK
+- Language: Turkish (primary), English (secondary)
+- Target Audience: Middle School (11-14), High School (15-18), University (18+)
+- Lessons: 10
+- Format: Interactive web pages with code examples
+
+## Site Structure
+- landing.html: Entry point with language selection (Turkish/English)
+- index.html: Course homepage with lesson list and level selector
+- ders01.html - ders10.html: Individual lesson pages
+
+## BERK Language Key Features
+- Bilingual keywords (Turkish: fonksiyon, degisken, eger | English: function, let, if)
+- Memory safety through ownership system (like Rust)
+- LLVM backend for native compilation
+- WebAssembly support
+- Embedded systems support (ARM Cortex-M, RISC-V, ESP32)
+
+## Keyword Equivalents (Turkish ↔ English)
+| Turkish | English | Description |
+|---------|---------|-------------|
+| fonksiyon | function | Function definition |
+| degisken | let | Variable declaration |
+| sabit | const | Constant declaration |
+| eger | if | Conditional |
+| degilse | else | Else branch |
+| esle | match | Pattern matching |
+| dongu | loop | Infinite loop |
+| iken | while | While loop |
+| icin | for | For loop |
+| don | return | Return statement |
+| yapi | struct | Structure definition |
+| numaralama | enum | Enumeration |
+| kullan | use | Import |
+| modul | mod | Module |
+| dogru | true | Boolean true |
+| yanlis | false | Boolean false |
+| yazdir | print | Print function |
+
+## Course Structure
+
+### Lesson 1: Hello World (Merhaba Dünya)
+- File: ders01.html
+- Topics: Basic program structure, main function, print output
+- Middle School: Game character introduction, superhero cards
+- High School: Personal introduction, class schedules
+- University: System logging, build tool output, compilation options
+
+### Lesson 2: Variables and Types (Değişkenler ve Tipler)
+- File: ders02.html
+- Topics: Variable declaration, data types, mutability
+- Middle School: Game character stats, score tracking
+- High School: Grade calculator, budget tracker
+- University: Type system, stack vs heap, ownership basics
+
+### Lesson 3: Control Flow (Kontrol Akışı)
+- File: ders03.html
+- Topics: if/else, loops (while, for, loop), break, continue
+- Middle School: Adventure game choices, treasure hunt
+- High School: Grade evaluation, menu systems
+- University: State machines, iterators, early returns
+
+### Lesson 4: Functions (Fonksiyonlar)
+- File: ders04.html
+- Topics: Function definition, parameters, return values, recursion
+- Middle School: Spell casting, character abilities
+- High School: Math helpers, unit converters
+- University: Higher-order functions, closures, generics intro
+
+### Lesson 5: Structures (Yapılar)
+- File: ders05.html
+- Topics: Struct definition, methods, constructors
+- Middle School: Game inventory, pet simulator
+- High School: Student records, contact book
+- University: Data modeling, impl blocks, associated functions
+
+### Lesson 6: Enum and Pattern Matching
+- File: ders06.html
+- Topics: Enum definition, match expressions, Option type intro
+- Middle School: Pokemon-style types, game states
+- High School: Day/mood tracker, calculator operations
+- University: Algebraic data types, exhaustive matching, guards
+
+### Lesson 7: Error Handling (Hata Yönetimi)
+- File: ders07.html
+- Topics: Option, Result, error propagation
+- Middle School: Quest success/failure, item finding
+- High School: Input validation, file operations
+- University: Custom error types, ? operator, error chains
+
+### Lesson 8: Ownership (Sahiplik)
+- File: ders08.html
+- Topics: Ownership rules, borrowing, references, lifetimes intro
+- Middle School: Toy sharing rules, library books
+- High School: Resource management, shared vs exclusive access
+- University: Borrow checker, lifetime annotations, RAII
+
+### Lesson 9: Collections (Koleksiyonlar)
+- File: ders09.html
+- Topics: Arrays, Vec, HashMap, iterators
+- Middle School: Pokemon collection, high scores
+- High School: Todo list, grade book
+- University: Iterator adapters, custom collections, performance
+
+### Lesson 10: Mini Project (Mini Proje)
+- File: ders10.html
+- Topics: Combining all concepts in a complete project
+- Middle School: Text adventure game
+- High School: Task manager CLI
+- University: Multi-module application with error handling
+
+## Navigation
+- Home: index.html
+- Lessons: ders01.html through ders10.html
+- Assets: css/style.css, js/main.js
+
+## API Endpoints (for programmatic access)
+- Course metadata: course.json
+- Sitemap: sitemap.xml
+
+## Code Examples Format
+All code examples follow this pattern:
+```berk
+// Comment explaining the code
+fonksiyon ana() {
+    // Turkish syntax example
+}
+
+// English equivalent:
+function main() {
+    // English syntax example
+}
+```
+
+## Level Selection
+Users can select their education level:
+- ortaokul (Middle School) - Fun, game-based examples
+- lise (High School) - Practical, real-world examples  
+- universite (University) - Technical, industry-focused examples
+
+Selection is stored in localStorage under key: 'berk-level'
+Language preference stored under key: 'berk-lang'
+
+## Contact & Resources
+- GitHub: https://github.com/ArslantasM/berk
+- Main Site: https://arslantasm.github.io/berk_pages/
+
+## License
+Educational content for BERK programming language.

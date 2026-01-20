@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders 04: Fonksiyonlar | BERK 101</title>
+    <meta name="description" content="BERK'te fonksiyon tanımlama, parametreler ve dönüş değerleri">
+    <meta name="ai-lesson" content="4">
+    <meta name="ai-topics" content="functions,parameters,return,recursion">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
+        <div class="level-switch">
+            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
+            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
+            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
+        </div>
+        <div class="lang-switch"><button class="lang-btn active" data-lang="tr">TR</button><button class="lang-btn" data-lang="en">EN</button></div>
+    </nav>
+
+    <header class="lesson-header">
+        <div class="lesson-nav">
+            <a href="ders03.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+            <span class="lesson-meta"><span class="tr">Ders 4 / 10</span><span class="en" style="display:none;">Lesson 4 / 10</span></span>
+        </div>
+        <h1 class="lesson-title"><span class="tr">⚙️ Fonksiyonlar</span><span class="en" style="display:none;">⚙️ Functions</span></h1>
+        
+        <div class="level-info-box" style="margin-top:1rem;">
+            <div class="level-info ortaokul-info">
+                <span class="level-badge">🎮 Ortaokul</span>
+                <span class="tr">Bu derste: Büyü kitabı - Tekrar kullanılabilir büyüler yaz!</span>
+                <span class="en" style="display:none;">In this lesson: Spell book - Write reusable spells!</span>
+            </div>
+            <div class="level-info lise-info" style="display:flex;">
+                <span class="level-badge">📚 Lise</span>
+                <span class="tr">Bu derste: Fonksiyonlar ile kodu organize et</span>
+                <span class="en" style="display:none;">In this lesson: Organize code with functions</span>
+            </div>
+            <div class="level-info universite-info">
+                <span class="level-badge">🎓 Üniversite</span>
+                <span class="tr">Bu derste: Higher-order functions, closures ve generics</span>
+                <span class="en" style="display:none;">In this lesson: Higher-order functions, closures, and generics</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="lesson-content">
+        <!-- ==================== ORTAOKUL ==================== -->
+        <div class="ortaokul-content">
+            <section class="lesson-section">
+                <h2>📖 <span class="tr">Büyü Kitabı</span><span class="en" style="display:none;">Spell Book</span></h2>
+                <p><span class="tr">Fonksiyonlar, <strong>büyüler</strong> gibidir! Bir kere yaz, istediğin kadar kullan. 🧙‍♂️</span><span class="en" style="display:none;">Functions are like <strong>spells</strong>! Write once, use many times. 🧙‍♂️</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Saldırı Büyüleri</span><span class="en" style="display:none;">Example 1: Attack Spells</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🔮 buyuler.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// 🔥 Ateş topu büyüsü
+fonksiyon ates_topu() {
+    yazdir("🔥 ATEŞ TOPU!");
+    yazdir("💥 50 hasar verdin!");
+}
+
+// ❄️ Buz oku büyüsü
+fonksiyon buz_oku() {
+    yazdir("❄️ BUZ OKU!");
+    yazdir("💥 30 hasar + yavaşlatma!");
+}
+
+// ⚡ Şimşek büyüsü - parametre ile
+fonksiyon simsek(guc: tamsayi) {
+    yazdir("⚡ ŞİMŞEK! Güç: {}", guc);
+    degisken hasar = guc * 10;
+    yazdir("💥 {} hasar verdin!", hasar);
+}
+
+fonksiyon ana() {
+    yazdir("🧙‍♂️ Büyücü savaşa hazır!\n");
+    
+    ates_topu();
+    yazdir("");
+    
+    buz_oku();
+    yazdir("");
+    
+    simsek(5);  // 50 hasar
+    simsek(10); // 100 hasar!
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Karakter Yetenekleri</span><span class="en" style="display:none;">Example 2: Character Abilities</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🦸 yetenekler.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// İyileştirme büyüsü - değer döndürüyor!
+fonksiyon iyilestir(mevcut_can: tamsayi) -> tamsayi {
+    degisken iyilesme = 25;
+    yazdir("💚 +{} can iyileştirildi!", iyilesme);
+    don mevcut_can + iyilesme;
+}
+
+// Hasar hesapla
+fonksiyon hasar_hesapla(guc: tamsayi, zirh: tamsayi) -> tamsayi {
+    degisken net_hasar = guc - zirh;
+    eger net_hasar < 0 yap
+        don 0;
+    son
+    don net_hasar;
+}
+
+fonksiyon ana() {
+    degisken mut can = 50;
+    yazdir("❤️ Başlangıç canı: {}", can);
+    
+    can = iyilestir(can);
+    yazdir("❤️ Şimdiki can: {}", can);
+    
+    can = iyilestir(can);
+    yazdir("❤️ Şimdiki can: {}", can);
+    
+    yazdir("\n⚔️ Savaş!");
+    degisken hasar = hasar_hesapla(30, 10);
+    yazdir("Alınan hasar: {}", hasar);
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🎯 <span class="tr">Senin Görevin!</span><span class="en" style="display:none;">Your Mission!</span></h4>
+                    <ol>
+                        <li><span class="tr">"Kalkan" büyüsü yaz - zırhı 2 katına çıkarsın!</span><span class="en" style="display:none;">Write a "Shield" spell that doubles armor!</span></li>
+                        <li><span class="tr">"Kritik Vuruş" fonksiyonu yaz - %20 şansla hasar 3 katına çıksın!</span><span class="en" style="display:none;">Write "Critical Hit" function - 20% chance for 3x damage!</span></li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== LİSE ==================== -->
+        <div class="lise-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>📖 <span class="tr">Fonksiyon Yapısı</span><span class="en" style="display:none;">Function Structure</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK</span></div>
+                    <pre><code>// Temel fonksiyon yapısı
+fonksiyon isim(parametre: tip) -> donus_tipi {
+    // kod
+    don deger;
+}
+
+// Örnekler:
+fonksiyon selamla() {                    // Parametresiz, dönüşsüz
+    yazdir("Merhaba!");
+}
+
+fonksiyon kare(x: tamsayi) -> tamsayi {  // Parametreli, dönüşlü
+    don x * x;
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Matematik Yardımcıları</span><span class="en" style="display:none;">Example 1: Math Helpers</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📐 matematik.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// Daire alanı
+fonksiyon daire_alani(yaricap: ondalik) -> ondalik {
+    sabit PI = 3.14159;
+    don PI * yaricap * yaricap;
+}
+
+// Dikdörtgen çevresi
+fonksiyon dikdortgen_cevresi(en: ondalik, boy: ondalik) -> ondalik {
+    don 2.0 * (en + boy);
+}
+
+// Üçgen alanı
+fonksiyon ucgen_alani(taban: ondalik, yukseklik: ondalik) -> ondalik {
+    don (taban * yukseklik) / 2.0;
+}
+
+// Fahrenheit'tan Celsius'a
+fonksiyon fahrenheit_to_celsius(f: ondalik) -> ondalik {
+    don (f - 32.0) * 5.0 / 9.0;
+}
+
+fonksiyon ana() {
+    yazdir("📐 Matematik Hesaplayıcı\n");
+    
+    yazdir("Daire alanı (r=5): {:.2}", daire_alani(5.0));
+    yazdir("Dikdörtgen çevresi (3x4): {:.2}", dikdortgen_cevresi(3.0, 4.0));
+    yazdir("Üçgen alanı (t=6, h=4): {:.2}", ucgen_alani(6.0, 4.0));
+    yazdir("98.6°F = {:.1}°C", fahrenheit_to_celsius(98.6));
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Not Hesaplayıcı</span><span class="en" style="display:none;">Example 2: Grade Calculator</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📊 grades.berk</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>function calculate_average(vize: float, final_grade: float) -> float {
+    return vize * 0.4 + final_grade * 0.6;
+}
+
+function get_letter_grade(average: float) -> string {
+    if average >= 90.0 do return "AA"; end
+    if average >= 85.0 do return "BA"; end
+    if average >= 80.0 do return "BB"; end
+    if average >= 75.0 do return "CB"; end
+    if average >= 70.0 do return "CC"; end
+    if average >= 65.0 do return "DC"; end
+    if average >= 60.0 do return "DD"; end
+    if average >= 50.0 do return "FD"; end
+    return "FF";
+}
+
+function is_passing(letter: &string) -> bool {
+    return letter != "FF" && letter != "FD";
+}
+
+function main() {
+    let vize = 75.0;
+    let final_grade = 85.0;
+    
+    let avg = calculate_average(vize, final_grade);
+    let letter = get_letter_grade(avg);
+    let passed = is_passing(&letter);
+    
+    print("📊 Sonuçlar:");
+    print("  Vize: {} | Final: {}", vize, final_grade);
+    print("  Ortalama: {:.1}", avg);
+    print("  Harf: {}", letter);
+    print("  Durum: {}", if passed do "✅ Geçti" else do "❌ Kaldı" end);
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>✏️ <span class="tr">Alıştırmalar</span><span class="en" style="display:none;">Exercises</span></h4>
+                    <ol>
+                        <li><span class="tr">BMI (Vücut Kitle İndeksi) hesaplayan fonksiyon yazın.</span><span class="en" style="display:none;">Write a function to calculate BMI.</span></li>
+                        <li><span class="tr">Asal sayı kontrolü yapan fonksiyon yazın.</span><span class="en" style="display:none;">Write a function to check if a number is prime.</span></li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ÜNİVERSİTE ==================== -->
+        <div class="universite-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>🎯 <span class="tr">İleri Fonksiyon Kavramları</span><span class="en" style="display:none;">Advanced Function Concepts</span></h2>
+                <ul>
+                    <li><span class="tr">Higher-order functions (fonksiyon alan/döndüren)</span><span class="en" style="display:none;">Higher-order functions (take/return functions)</span></li>
+                    <li><span class="tr">Closures ve captured variables</span><span class="en" style="display:none;">Closures and captured variables</span></li>
+                    <li><span class="tr">Generic functions</span><span class="en" style="display:none;">Generic functions</span></li>
+                    <li><span class="tr">Function pointers vs closures</span><span class="en" style="display:none;">Function pointers vs closures</span></li>
+                </ul>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Higher-Order Functions</span><span class="en" style="display:none;">Example 1: Higher-Order Functions</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Advanced)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// Function that takes a function as parameter
+function apply_twice<T, F>(f: F, x: T) -> T 
+where 
+    F: Fn(T) -> T,
+    T: Copy 
+{
+    f(f(x))
+}
+
+// Function that returns a function (closure)
+function make_multiplier(factor: i32) -> impl Fn(i32) -> i32 {
+    move |x| x * factor
+}
+
+// Function composition
+function compose<A, B, C, F, G>(f: F, g: G) -> impl Fn(A) -> C
+where
+    F: Fn(A) -> B,
+    G: Fn(B) -> C,
+{
+    move |x| g(f(x))
+}
+
+function main() {
+    // Higher-order function usage
+    let double = |x: i32| x * 2;
+    let result = apply_twice(double, 5);  // 5 -> 10 -> 20
+    print("apply_twice(double, 5) = {}", result);
+    
+    // Closure factory
+    let triple = make_multiplier(3);
+    let quadruple = make_multiplier(4);
+    print("triple(10) = {}", triple(10));      // 30
+    print("quadruple(10) = {}", quadruple(10)); // 40
+    
+    // Function composition
+    let add_one = |x: i32| x + 1;
+    let square = |x: i32| x * x;
+    let add_then_square = compose(add_one, square);
+    print("(5 + 1)² = {}", add_then_square(5));  // 36
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Generic Pipeline</span><span class="en" style="display:none;">Example 2: Generic Pipeline</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Generics)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// Generic max function
+function max<T: Ord>(a: T, b: T) -> T {
+    if a > b { a } else { b }
+}
+
+// Generic find function
+function find<T: PartialEq>(slice: &[T], target: &T) -> Option<usize> {
+    for (i, item) in slice.iter().enumerate() {
+        if item == target {
+            return Some(i);
+        }
+    }
+    None
+}
+
+// Pipeline builder pattern
+struct Pipeline<T> {
+    value: T,
+}
+
+impl<T> Pipeline<T> {
+    function new(value: T) -> Self {
+        Pipeline { value }
+    }
+    
+    function map<U, F: FnOnce(T) -> U>(self, f: F) -> Pipeline<U> {
+        Pipeline { value: f(self.value) }
+    }
+    
+    function tap<F: FnOnce(&T)>(self, f: F) -> Self {
+        f(&self.value);
+        self
+    }
+    
+    function unwrap(self) -> T {
+        self.value
+    }
+}
+
+function main() {
+    // Generic functions
+    print("max(10, 20) = {}", max(10, 20));
+    print("max('a', 'z') = {}", max('a', 'z'));
+    
+    let numbers = [1, 2, 3, 4, 5];
+    print("find 3: {:?}", find(&numbers, &3));  // Some(2)
+    print("find 9: {:?}", find(&numbers, &9));  // None
+    
+    // Pipeline pattern
+    let result = Pipeline::new(5)
+        .tap(|x| print("Initial: {}", x))
+        .map(|x| x * 2)
+        .tap(|x| print("After *2: {}", x))
+        .map(|x| x + 10)
+        .tap(|x| print("After +10: {}", x))
+        .unwrap();
+    
+    print("Final result: {}", result);  // 20
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🎓 <span class="tr">İleri Seviye Alıştırmalar</span><span class="en" style="display:none;">Advanced Exercises</span></h4>
+                    <ol>
+                        <li><span class="tr">Memoization decorator fonksiyonu implemente edin.</span><span class="en" style="display:none;">Implement a memoization decorator function.</span></li>
+                        <li><span class="tr">Generic <code>fold</code> fonksiyonu yazın (reduce pattern).</span><span class="en" style="display:none;">Write a generic <code>fold</code> function (reduce pattern).</span></li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- ORTAK ÖZET -->
+        <section class="lesson-section">
+            <h2>📌 <span class="tr">Özet</span><span class="en" style="display:none;">Summary</span></h2>
+            <ul>
+                <li><span class="tr"><code>fonksiyon</code>/<code>function</code> ile fonksiyon tanımlanır</span><span class="en" style="display:none;"><code>fonksiyon</code>/<code>function</code> defines a function</span></li>
+                <li><span class="tr">Parametreler <code>isim: tip</code> formatında yazılır</span><span class="en" style="display:none;">Parameters use <code>name: type</code> format</span></li>
+                <li><span class="tr"><code>-> tip</code> ile dönüş tipi belirtilir</span><span class="en" style="display:none;"><code>-> type</code> specifies return type</span></li>
+                <li><span class="tr"><code>don</code>/<code>return</code> ile değer döndürülür</span><span class="en" style="display:none;"><code>don</code>/<code>return</code> returns a value</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="lesson-footer">
+        <a href="ders03.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+        <a href="ders05.html"><span class="tr">Sonraki: Yapılar →</span><span class="en" style="display:none;">Next: Structures →</span></a>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

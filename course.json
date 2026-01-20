@@ -1,0 +1,178 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "BERK ile Sistem Programlama 101",
+  "alternateName": "Systems Programming 101 with BERK",
+  "description": "Türkçe ve İngilizce sözdizimi ile modern sistem programlama öğrenin. 10 ders ile temellerden ileri seviyeye.",
+  "provider": {
+    "@type": "Organization",
+    "name": "BERK Programming Language",
+    "url": "https://github.com/ArslantasM/berk"
+  },
+  "educationalLevel": ["Middle School", "High School", "University"],
+  "inLanguage": ["tr", "en"],
+  "numberOfLessons": 10,
+  "coursePrerequisites": "None - beginner friendly",
+  "teaches": [
+    "Systems Programming",
+    "Memory Safety",
+    "Ownership Model",
+    "Turkish Programming Keywords",
+    "LLVM Compilation"
+  ],
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "courseWorkload": "PT10H"
+  },
+  "levels": {
+    "ortaokul": {
+      "name": "Ortaokul",
+      "nameEn": "Middle School",
+      "ageRange": "11-14",
+      "theme": "Games, characters, fun projects",
+      "icon": "🎮"
+    },
+    "lise": {
+      "name": "Lise",
+      "nameEn": "High School",
+      "ageRange": "15-18",
+      "theme": "Real-life problems, practical applications",
+      "icon": "📚"
+    },
+    "universite": {
+      "name": "Üniversite",
+      "nameEn": "University",
+      "ageRange": "18+",
+      "theme": "Industrial applications, advanced concepts",
+      "icon": "🎓"
+    }
+  },
+  "lessons": [
+    {
+      "id": 1,
+      "slug": "ders01",
+      "titleTr": "Merhaba Dünya",
+      "titleEn": "Hello World",
+      "file": "ders01.html",
+      "topics": ["program structure", "main function", "print output"],
+      "keywords": ["fonksiyon", "ana", "yazdir", "function", "main", "print"]
+    },
+    {
+      "id": 2,
+      "slug": "ders02",
+      "titleTr": "Değişkenler ve Tipler",
+      "titleEn": "Variables and Types",
+      "file": "ders02.html",
+      "topics": ["variables", "data types", "mutability", "constants"],
+      "keywords": ["degisken", "let", "sabit", "const", "mut", "tamsayi", "int", "metin", "string"]
+    },
+    {
+      "id": 3,
+      "slug": "ders03",
+      "titleTr": "Kontrol Akışı",
+      "titleEn": "Control Flow",
+      "file": "ders03.html",
+      "topics": ["conditionals", "loops", "break", "continue"],
+      "keywords": ["eger", "if", "degilse", "else", "dongu", "loop", "iken", "while", "icin", "for"]
+    },
+    {
+      "id": 4,
+      "slug": "ders04",
+      "titleTr": "Fonksiyonlar",
+      "titleEn": "Functions",
+      "file": "ders04.html",
+      "topics": ["function definition", "parameters", "return values", "recursion"],
+      "keywords": ["fonksiyon", "function", "don", "return"]
+    },
+    {
+      "id": 5,
+      "slug": "ders05",
+      "titleTr": "Yapılar (Struct)",
+      "titleEn": "Structures",
+      "file": "ders05.html",
+      "topics": ["struct definition", "fields", "methods", "impl"],
+      "keywords": ["yapi", "struct", "impl"]
+    },
+    {
+      "id": 6,
+      "slug": "ders06",
+      "titleTr": "Enum ve Pattern Matching",
+      "titleEn": "Enum and Pattern Matching",
+      "file": "ders06.html",
+      "topics": ["enum", "match", "pattern matching"],
+      "keywords": ["numaralama", "enum", "esle", "match"]
+    },
+    {
+      "id": 7,
+      "slug": "ders07",
+      "titleTr": "Hata Yönetimi",
+      "titleEn": "Error Handling",
+      "file": "ders07.html",
+      "topics": ["Option", "Result", "error propagation"],
+      "keywords": ["Secenek", "Option", "Sonuc", "Result", "Bazi", "Some", "Yok", "None"]
+    },
+    {
+      "id": 8,
+      "slug": "ders08",
+      "titleTr": "Sahiplik (Ownership)",
+      "titleEn": "Ownership",
+      "file": "ders08.html",
+      "topics": ["ownership", "borrowing", "references", "lifetimes"],
+      "keywords": ["&", "&mut", "move", "clone", "Copy"]
+    },
+    {
+      "id": 9,
+      "slug": "ders09",
+      "titleTr": "Koleksiyonlar",
+      "titleEn": "Collections",
+      "file": "ders09.html",
+      "topics": ["arrays", "Vec", "HashMap", "iterators"],
+      "keywords": ["Vektor", "Vec", "HashMap", "dizi", "array"]
+    },
+    {
+      "id": 10,
+      "slug": "ders10",
+      "titleTr": "Mini Proje",
+      "titleEn": "Mini Project",
+      "file": "ders10.html",
+      "topics": ["project structure", "combining concepts"],
+      "keywords": ["proje", "project"]
+    }
+  ],
+  "berkKeywordMap": {
+    "fonksiyon": "function",
+    "degisken": "let",
+    "sabit": "const",
+    "eger": "if",
+    "degilse": "else",
+    "esle": "match",
+    "dongu": "loop",
+    "iken": "while",
+    "icin": "for",
+    "don": "return",
+    "yapi": "struct",
+    "numaralama": "enum",
+    "kullan": "use",
+    "modul": "mod",
+    "dogru": "true",
+    "yanlis": "false",
+    "yazdir": "print",
+    "oku": "read",
+    "yaz": "write",
+    "ana": "main",
+    "tamsayi": "int",
+    "ondalik": "float",
+    "metin": "string",
+    "mantiksal": "bool",
+    "Secenek": "Option",
+    "Sonuc": "Result",
+    "Bazi": "Some",
+    "Yok": "None",
+    "Tamam": "Ok",
+    "Hata": "Err",
+    "Vektor": "Vec",
+    "mut": "mut",
+    "pub": "pub"
+  }
+}

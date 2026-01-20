@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders 02: Değişkenler ve Tipler | BERK 101</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
+        <div class="level-switch">
+            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
+            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
+            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
+        </div>
+        <div class="lang-switch"><button class="lang-btn active" data-lang="tr">TR</button><button class="lang-btn" data-lang="en">EN</button></div>
+    </nav>
+
+    <header class="lesson-header">
+        <div class="lesson-nav">
+            <a href="ders01.html">← <span class="tr">Önceki Ders</span><span class="en" style="display:none;">Previous</span></a>
+            <span class="lesson-meta"><span class="tr">Ders 2 / 10</span><span class="en" style="display:none;">Lesson 2 / 10</span></span>
+        </div>
+        <h1 class="lesson-title"><span class="tr">📦 Değişkenler ve Tipler</span><span class="en" style="display:none;">📦 Variables and Types</span></h1>
+        
+        <div class="level-info-box" style="margin-top:1rem;">
+            <div class="level-info ortaokul-info">
+                <span class="level-badge">🎮 Ortaokul</span>
+                <span class="tr">Bu derste: Bilgisayarın hafızasına bilgi kaydet!</span>
+                <span class="en" style="display:none;">In this lesson: Save information in computer's memory!</span>
+            </div>
+            <div class="level-info lise-info" style="display:flex;">
+                <span class="level-badge">📚 Lise</span>
+                <span class="tr">Bu derste: Veri tipleri, değişkenler ve sabitler</span>
+                <span class="en" style="display:none;">In this lesson: Data types, variables and constants</span>
+            </div>
+            <div class="level-info universite-info">
+                <span class="level-badge">🎓 Üniversite</span>
+                <span class="tr">Bu derste: Stack allocation, type inference ve ownership temelleri</span>
+                <span class="en" style="display:none;">In this lesson: Stack allocation, type inference and ownership basics</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="lesson-content">
+        <!-- ==================== ORTAOKUL ==================== -->
+        <div class="ortaokul-content">
+            <section class="lesson-section">
+                <h2>🎒 <span class="tr">Değişken = Etiketli Kutu!</span><span class="en" style="display:none;">Variable = Labeled Box!</span></h2>
+                <p><span class="tr">Değişkenleri <strong>etiketli kutular</strong> gibi düşün! Her kutuya bir şey koyabilirsin ve daha sonra kullanabilirsin.</span><span class="en" style="display:none;">Think of variables as <strong>labeled boxes</strong>! You can put something in each box and use it later.</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Oyun Karakterin</span><span class="en" style="display:none;">Example 1: Your Game Character</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🎮 karakter.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon ana() {
+    // 🎒 Kutularımızı (değişkenler) oluşturalım!
+    degisken karakter_adi = "ShadowNinja";
+    degisken seviye = 42;
+    degisken can = 100.0;
+    degisken zirh_var = dogru;
+    
+    // 📺 Ekrana yazdıralım
+    yazdir("👤 Karakter: {}", karakter_adi);
+    yazdir("⭐ Seviye: {}", seviye);
+    yazdir("❤️ Can: {}", can);
+    yazdir("🛡️ Zırh: {}", zirh_var);
+    
+    // 🎯 Toplam güç hesapla
+    degisken guc = seviye * 10 + can;
+    yazdir("💪 Toplam Güç: {}", guc);
+}
+</code></pre>
+                </div>
+
+                <div class="tip-box">
+                    <p><strong>🎯 <span class="tr">Kutu Tipleri:</span><span class="en" style="display:none;">Box Types:</span></strong></p>
+                    <ul>
+                        <li>📝 <code>metin</code> = Yazılar için ("Merhaba")</li>
+                        <li>🔢 <code>tamsayi</code> = Tam sayılar için (42, -5)</li>
+                        <li>💧 <code>ondalik</code> = Küsuratlı sayılar (3.14)</li>
+                        <li>✅ <code>mantiksal</code> = Evet/Hayır (dogru/yanlis)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Oyun Puanı Değiştir</span><span class="en" style="display:none;">Example 2: Change Game Score</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🏆 puan.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon ana() {
+    // 🔓 "mut" = değiştirilebilir (mutable)
+    degisken mut puan = 0;
+    yazdir("🎮 Oyun başladı! Puan: {}", puan);
+    
+    // Düşman yendin! +100 puan
+    puan = puan + 100;
+    yazdir("👾 Düşman yenildi! Puan: {}", puan);
+    
+    // Altın buldun! +50 puan
+    puan = puan + 50;
+    yazdir("💰 Altın bulundu! Puan: {}", puan);
+    
+    // Tuzağa düştün! -25 puan
+    puan = puan - 25;
+    yazdir("💥 Tuzak! Puan: {}", puan);
+    
+    yazdir("🏆 Final Puan: {}", puan);
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🎯 <span class="tr">Senin Görevin!</span><span class="en" style="display:none;">Your Mission!</span></h4>
+                    <ol>
+                        <li><span class="tr">Kendi oyun karakterini oluştur (farklı özelliklerle)!</span><span class="en" style="display:none;">Create your own game character!</span></li>
+                        <li><span class="tr">Basit bir hesap makinesi yap (toplama, çıkarma)!</span><span class="en" style="display:none;">Make a simple calculator!</span></li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== LİSE ==================== -->
+        <div class="lise-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>📖 <span class="tr">Değişken Tanımlama</span><span class="en" style="display:none;">Variable Declaration</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Türkçe)</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon ana() {
+    // Değişken tanımlama
+    degisken isim = "Ahmet";
+    degisken yas = 17;
+    degisken boy = 1.75;
+    degisken ogrenci = dogru;
+    
+    yazdir("İsim: {}", isim);
+    yazdir("Yaş: {} | Boy: {}m", yas, boy);
+    yazdir("Öğrenci mi? {}", ogrenci);
+    
+    // Sabit değer (değiştirilemez)
+    sabit PI = 3.14159;
+    sabit OKUL_ADI = "Anadolu Lisesi";
+    yazdir("Pi: {} | Okul: {}", PI, OKUL_ADI);
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Not Ortalaması Hesapla</span><span class="en" style="display:none;">Example 1: Calculate GPA</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📊 notlar.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon ana() {
+    // Ders notları
+    degisken matematik = 85.5;
+    degisken fizik = 78.0;
+    degisken kimya = 92.0;
+    degisken biyoloji = 88.5;
+    
+    // Ortalama hesapla
+    degisken toplam = matematik + fizik + kimya + biyoloji;
+    degisken ortalama = toplam / 4.0;
+    
+    yazdir("📚 Karne Raporu");
+    yazdir("─────────────────────");
+    yazdir("Matematik: {}", matematik);
+    yazdir("Fizik: {}", fizik);
+    yazdir("Kimya: {}", kimya);
+    yazdir("Biyoloji: {}", biyoloji);
+    yazdir("─────────────────────");
+    yazdir("📊 Ortalama: {:.2}", ortalama);
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Bütçe Takibi</span><span class="en" style="display:none;">Example 2: Budget Tracker</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">💰 budget.berk</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>function main() {
+    // Mutable variable for balance
+    let mut balance: float = 500.0;
+    print("💳 Initial Balance: {}₺", balance);
+    
+    // Expenses
+    let lunch = 45.0;
+    let transport = 20.0;
+    let books = 150.0;
+    
+    balance = balance - lunch;
+    print("🍕 After lunch: {}₺", balance);
+    
+    balance = balance - transport;
+    print("🚌 After transport: {}₺", balance);
+    
+    balance = balance - books;
+    print("📚 After books: {}₺", balance);
+    
+    print("─────────────────────");
+    print("💰 Remaining: {}₺", balance);
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>✏️ <span class="tr">Alıştırmalar</span><span class="en" style="display:none;">Exercises</span></h4>
+                    <ol>
+                        <li><span class="tr">Kendi karne ortalamanızı hesaplayan program yazın.</span><span class="en" style="display:none;">Calculate your own GPA.</span></li>
+                        <li><span class="tr">Aylık harcamalarınızı takip eden program yazın.</span><span class="en" style="display:none;">Track your monthly expenses.</span></li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ÜNİVERSİTE ==================== -->
+        <div class="universite-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>🎯 <span class="tr">Tip Sistemi ve Bellek Modeli</span><span class="en" style="display:none;">Type System and Memory Model</span></h2>
+                <ul>
+                    <li><span class="tr">Stack vs Heap allocation</span><span class="en" style="display:none;">Stack vs Heap allocation</span></li>
+                    <li><span class="tr">Type inference ve explicit annotation</span><span class="en" style="display:none;">Type inference and explicit annotation</span></li>
+                    <li><span class="tr">Copy types vs Move types</span><span class="en" style="display:none;">Copy types vs Move types</span></li>
+                    <li><span class="tr">Immutability by default</span><span class="en" style="display:none;">Immutability by default</span></li>
+                </ul>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Veri Yapısı Tasarımı</span><span class="en" style="display:none;">Example 1: Data Structure Design</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Advanced)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// Explicit type annotations
+function main() {
+    // Primitive types (stack allocated, Copy trait)
+    let count: i32 = 0;
+    let ratio: f64 = 3.14159265359;
+    let flag: bool = true;
+    let byte: u8 = 255;
+    
+    // Sized integers
+    let small: i8 = 127;      // -128 to 127
+    let medium: i16 = 32767;  // -32768 to 32767
+    let large: i64 = 9223372036854775807;
+    
+    // Unsigned variants
+    let positive: u32 = 4294967295;
+    
+    // Platform-dependent
+    let index: usize = 42;  // Pointer-sized
+    let diff: isize = -10;
+    
+    // Heap allocated (Move semantics)
+    let name: String = String::from("BERK");
+    let data: Vec<i32> = vec![1, 2, 3, 4, 5];
+    
+    print("Size of i32: {} bytes", size_of::<i32>());
+    print("Size of String: {} bytes", size_of::<String>());
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Ownership ve Shadowing</span><span class="en" style="display:none;">Example 2: Ownership and Shadowing</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Ownership)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>function main() {
+    // Shadowing - same name, new binding
+    let x = 5;
+    let x = x + 1;      // New binding, shadows previous
+    let x = x * 2;      // x is now 12
+    print("Shadowed x: {}", x);
+    
+    // Type change via shadowing
+    let spaces = "   ";
+    let spaces = spaces.len();  // Now usize, not &str
+    print("Space count: {}", spaces);
+    
+    // Move semantics
+    let s1 = String::from("hello");
+    let s2 = s1;  // s1 is moved, no longer valid
+    // print("{}", s1);  // ERROR: value borrowed after move
+    print("s2: {}", s2);
+    
+    // Clone for deep copy
+    let s3 = String::from("world");
+    let s4 = s3.clone();  // Deep copy
+    print("s3: {}, s4: {}", s3, s4);  // Both valid
+    
+    // Copy types (stack-only, automatic copy)
+    let a = 42;
+    let b = a;  // Copy, not move
+    print("a: {}, b: {}", a, b);  // Both valid
+}
+</code></pre>
+                </div>
+
+                <div class="tip-box">
+                    <p><strong>🔧 <span class="tr">Teknik Not:</span><span class="en" style="display:none;">Technical Note:</span></strong><br>
+                    <span class="tr">
+                        Copy trait'i implement eden tipler (i32, f64, bool, char) stack'te kopyalanır.
+                        String, Vec gibi heap tipler move semantics kullanır.
+                    </span>
+                    <span class="en" style="display:none;">
+                        Types implementing Copy trait (i32, f64, bool, char) are copied on stack.
+                        Heap types like String, Vec use move semantics.
+                    </span></p>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🎓 <span class="tr">İleri Seviye Alıştırmalar</span><span class="en" style="display:none;">Advanced Exercises</span></h4>
+                    <ol>
+                        <li><span class="tr">Farklı integer tiplerinin bellek boyutlarını karşılaştırın.</span><span class="en" style="display:none;">Compare memory sizes of different integer types.</span></li>
+                        <li><span class="tr">Move ve Clone davranışlarını gösteren bir program yazın.</span><span class="en" style="display:none;">Write a program demonstrating Move vs Clone behavior.</span></li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- ORTAK ÖZET -->
+        <section class="lesson-section">
+            <h2>📌 <span class="tr">Özet</span><span class="en" style="display:none;">Summary</span></h2>
+            <ul>
+                <li><span class="tr"><code>degisken</code> / <code>let</code> ile değişken tanımlanır.</span><span class="en" style="display:none;"><code>degisken</code> / <code>let</code> declares variables.</span></li>
+                <li><span class="tr"><code>sabit</code> / <code>const</code> ile sabit değer tanımlanır.</span><span class="en" style="display:none;"><code>sabit</code> / <code>const</code> declares constants.</span></li>
+                <li><span class="tr">Varsayılan olarak değiştirilemez; <code>mut</code> ile değiştirilebilir.</span><span class="en" style="display:none;">Immutable by default; use <code>mut</code> for mutability.</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="lesson-footer">
+        <a href="ders01.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+        <a href="ders03.html"><span class="tr">Sonraki: Kontrol Akışı →</span><span class="en" style="display:none;">Next: Control Flow →</span></a>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

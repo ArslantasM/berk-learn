@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders 06: Enum ve Match | BERK 101</title>
+    <meta name="description" content="BERK'te enum tanımlama ve pattern matching">
+    <meta name="ai-lesson" content="6">
+    <meta name="ai-topics" content="enum,match,pattern,variants,Option,Result">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
+        <div class="level-switch">
+            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
+            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
+            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
+        </div>
+        <div class="lang-switch"><button class="lang-btn active" data-lang="tr">TR</button><button class="lang-btn" data-lang="en">EN</button></div>
+    </nav>
+
+    <header class="lesson-header">
+        <div class="lesson-nav">
+            <a href="ders05.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+            <span class="lesson-meta"><span class="tr">Ders 6 / 10</span><span class="en" style="display:none;">Lesson 6 / 10</span></span>
+        </div>
+        <h1 class="lesson-title"><span class="tr">🎯 Enum ve Pattern Matching</span><span class="en" style="display:none;">🎯 Enum and Pattern Matching</span></h1>
+        
+        <div class="level-info-box" style="margin-top:1rem;">
+            <div class="level-info ortaokul-info">
+                <span class="level-badge">🎮 Ortaokul</span>
+                <span class="tr">Bu derste: Oyun durumları ve karakter sınıfları!</span>
+                <span class="en" style="display:none;">In this lesson: Game states and character classes!</span>
+            </div>
+            <div class="level-info lise-info" style="display:flex;">
+                <span class="level-badge">📚 Lise</span>
+                <span class="tr">Bu derste: Sabit seçenekler ve match ifadesi</span>
+                <span class="en" style="display:none;">In this lesson: Fixed options and match expression</span>
+            </div>
+            <div class="level-info universite-info">
+                <span class="level-badge">🎓 Üniversite</span>
+                <span class="tr">Bu derste: Algebraic data types, Option/Result ve advanced patterns</span>
+                <span class="en" style="display:none;">In this lesson: Algebraic data types, Option/Result, and advanced patterns</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="lesson-content">
+        <!-- ==================== ORTAOKUL ==================== -->
+        <div class="ortaokul-content">
+            <section class="lesson-section">
+                <h2>🎮 <span class="tr">Oyunda Seçimler!</span><span class="en" style="display:none;">Choices in Games!</span></h2>
+                <p><span class="tr">Enum = Sabit seçenekler listesi! RPG'deki karakter sınıfları gibi.</span><span class="en" style="display:none;">Enum = Fixed list of options! Like character classes in RPGs.</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Karakter Sınıfı</span><span class="en" style="display:none;">Example 1: Character Class</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">⚔️ siniflar.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// Karakter sınıfları - sadece bu 4'ü olabilir!
+enum KarakterSinifi {
+    Savasci,    // ⚔️
+    Buyucu,     // 🔮
+    Okcu,       // 🏹
+    Hirsiz,     // 🗡️
+}
+
+fonksiyon sinif_ozellikleri(sinif: KarakterSinifi) {
+    esle sinif yap
+        KarakterSinifi::Savasci => {
+            yazdir("⚔️ SAVAŞÇI");
+            yazdir("  HP: 150 | ATK: 40 | DEF: 30");
+            yazdir("  Özel: Kalkan Savunması");
+        },
+        KarakterSinifi::Buyucu => {
+            yazdir("🔮 BÜYÜCÜ");
+            yazdir("  HP: 80 | ATK: 60 | DEF: 10");
+            yazdir("  Özel: Ateş Topu");
+        },
+        KarakterSinifi::Okcu => {
+            yazdir("🏹 OKÇU");
+            yazdir("  HP: 100 | ATK: 50 | DEF: 15");
+            yazdir("  Özel: Kritik Atış");
+        },
+        KarakterSinifi::Hirsiz => {
+            yazdir("🗡️ HIRSIZ");
+            yazdir("  HP: 90 | ATK: 45 | DEF: 20");
+            yazdir("  Özel: Gizlenme");
+        },
+    son
+}
+
+fonksiyon ana() {
+    yazdir("🎮 RPG KARAKTER SEÇİMİ\n");
+    
+    degisken secim = KarakterSinifi::Buyucu;
+    sinif_ozellikleri(secim);
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Oyun Durumları</span><span class="en" style="display:none;">Example 2: Game States</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🎲 oyun.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>enum OyunDurumu {
+    Menu,
+    Oynuyor,
+    Durakladi,
+    BittiKazandi,
+    BittiKaybetti,
+}
+
+fonksiyon durum_goster(durum: OyunDurumu) {
+    esle durum yap
+        OyunDurumu::Menu => yazdir("🏠 ANA MENÜ"),
+        OyunDurumu::Oynuyor => yazdir("🎮 OYUN DEVAM EDİYOR..."),
+        OyunDurumu::Durakladi => yazdir("⏸️ DURAKLATILDI"),
+        OyunDurumu::BittiKazandi => {
+            yazdir("🏆 TEBRİKLER!");
+            yazdir("🎉 KAZANDIN!");
+        },
+        OyunDurumu::BittiKaybetti => {
+            yazdir("💀 GAME OVER");
+            yazdir("😢 Kaybettin...");
+        },
+    son
+}
+
+fonksiyon ana() {
+    degisken mut durum = OyunDurumu::Menu;
+    durum_goster(durum);
+    
+    durum = OyunDurumu::Oynuyor;
+    durum_goster(durum);
+    
+    durum = OyunDurumu::BittiKazandi;
+    durum_goster(durum);
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== LİSE ==================== -->
+        <div class="lise-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>📖 <span class="tr">Enum Nedir?</span><span class="en" style="display:none;">What is Enum?</span></h2>
+                <p><span class="tr">Enum, bir değişkenin sadece belirli değerlerden birini alabileceğini tanımlar.</span><span class="en" style="display:none;">Enum defines that a variable can only have one of specific values.</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Trafik Işığı</span><span class="en" style="display:none;">Example 1: Traffic Light</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🚦 trafik.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>enum TrafikIsigi {
+    Kirmizi,
+    Sari,
+    Yesil,
+}
+
+fonksiyon bekle_suresi(isik: TrafikIsigi) -> tamsayi {
+    esle isik yap
+        TrafikIsigi::Kirmizi => 30,
+        TrafikIsigi::Sari => 5,
+        TrafikIsigi::Yesil => 25,
+    son
+}
+
+fonksiyon mesaj(isik: TrafikIsigi) -> metin {
+    esle isik yap
+        TrafikIsigi::Kirmizi => "🛑 DUR!",
+        TrafikIsigi::Sari => "⚠️ HAZIRLAN",
+        TrafikIsigi::Yesil => "✅ GEÇ",
+    son
+}
+
+fonksiyon ana() {
+    degisken isiklar = [
+        TrafikIsigi::Yesil,
+        TrafikIsigi::Sari,
+        TrafikIsigi::Kirmizi,
+    ];
+    
+    icin isik in isiklar {
+        yazdir("{}", mesaj(isik));
+        yazdir("  Süre: {} saniye\n", bekle_suresi(isik));
+    }
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: HTTP Status</span><span class="en" style="display:none;">Example 2: HTTP Status</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🌐 http.berk</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>enum HttpStatus {
+    Ok(string),           // 200 + body
+    NotFound,             // 404
+    BadRequest(string),   // 400 + error message
+    ServerError,          // 500
+}
+
+function handle_response(status: HttpStatus) {
+    match status {
+        HttpStatus::Ok(body) => {
+            print("✅ 200 OK");
+            print("Body: {}", body);
+        },
+        HttpStatus::NotFound => {
+            print("❌ 404 Not Found");
+        },
+        HttpStatus::BadRequest(msg) => {
+            print("⚠️ 400 Bad Request: {}", msg);
+        },
+        HttpStatus::ServerError => {
+            print("🔥 500 Internal Server Error");
+        },
+    }
+}
+
+function main() {
+    let response1 = HttpStatus::Ok("Hello, World!".to_string());
+    let response2 = HttpStatus::NotFound;
+    let response3 = HttpStatus::BadRequest("Invalid JSON".to_string());
+    
+    handle_response(response1);
+    print("");
+    handle_response(response2);
+    print("");
+    handle_response(response3);
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ÜNİVERSİTE ==================== -->
+        <div class="universite-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>🎯 <span class="tr">Algebraic Data Types</span><span class="en" style="display:none;">Algebraic Data Types</span></h2>
+                <ul>
+                    <li><span class="tr">Sum types (enum variants)</span></li>
+                    <li><span class="tr">Product types (structs)</span></li>
+                    <li><span class="tr">Pattern matching exhaustiveness</span></li>
+                    <li><span class="tr">Option ve Result monads</span></li>
+                </ul>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Expression Evaluator</span><span class="en" style="display:none;">Example 1: Expression Evaluator</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (AST)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// AST for arithmetic expressions
+enum Expr {
+    Literal(i64),
+    Add(Box<Expr>, Box<Expr>),
+    Sub(Box<Expr>, Box<Expr>),
+    Mul(Box<Expr>, Box<Expr>),
+    Div(Box<Expr>, Box<Expr>),
+}
+
+impl Expr {
+    function eval(&self) -> Result<i64, &'static str> {
+        match self {
+            Expr::Literal(n) => Ok(*n),
+            Expr::Add(l, r) => Ok(l.eval()? + r.eval()?),
+            Expr::Sub(l, r) => Ok(l.eval()? - r.eval()?),
+            Expr::Mul(l, r) => Ok(l.eval()? * r.eval()?),
+            Expr::Div(l, r) => {
+                let divisor = r.eval()?;
+                if divisor == 0 {
+                    Err("Division by zero")
+                } else {
+                    Ok(l.eval()? / divisor)
+                }
+            }
+        }
+    }
+    
+    function display(&self) -> String {
+        match self {
+            Expr::Literal(n) => n.to_string(),
+            Expr::Add(l, r) => format!("({} + {})", l.display(), r.display()),
+            Expr::Sub(l, r) => format!("({} - {})", l.display(), r.display()),
+            Expr::Mul(l, r) => format!("({} * {})", l.display(), r.display()),
+            Expr::Div(l, r) => format!("({} / {})", l.display(), r.display()),
+        }
+    }
+}
+
+function main() {
+    // (2 + 3) * 4 = 20
+    let expr = Expr::Mul(
+        Box::new(Expr::Add(
+            Box::new(Expr::Literal(2)),
+            Box::new(Expr::Literal(3)),
+        )),
+        Box::new(Expr::Literal(4)),
+    );
+    
+    print("Expression: {}", expr.display());
+    match expr.eval() {
+        Ok(result) => print("Result: {}", result),
+        Err(e) => print("Error: {}", e),
+    }
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Error Handling</span><span class="en" style="display:none;">Example 2: Error Handling</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Result)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// Custom error type
+enum DatabaseError {
+    ConnectionFailed(String),
+    QueryFailed { query: String, reason: String },
+    NotFound { table: String, id: u64 },
+    PermissionDenied,
+}
+
+impl DatabaseError {
+    function message(&self) -> String {
+        match self {
+            DatabaseError::ConnectionFailed(host) => 
+                format!("Failed to connect to {}", host),
+            DatabaseError::QueryFailed { query, reason } => 
+                format!("Query '{}' failed: {}", query, reason),
+            DatabaseError::NotFound { table, id } => 
+                format!("Record {} not found in {}", id, table),
+            DatabaseError::PermissionDenied => 
+                "Permission denied".to_string(),
+        }
+    }
+}
+
+type DbResult<T> = Result<T, DatabaseError>;
+
+struct User {
+    id: u64,
+    name: String,
+}
+
+function find_user(id: u64) -> DbResult<User> {
+    // Simulated lookup
+    if id == 0 {
+        return Err(DatabaseError::NotFound { 
+            table: "users".to_string(), 
+            id 
+        });
+    }
+    Ok(User { id, name: "Alice".to_string() })
+}
+
+function main() {
+    // Proper error handling
+    match find_user(1) {
+        Ok(user) => print("Found: {} (ID: {})", user.name, user.id),
+        Err(e) => print("Error: {}", e.message()),
+    }
+    
+    // Using ? operator for propagation
+    let user_name = find_user(0)
+        .map(|u| u.name)
+        .unwrap_or_else(|e| format!("<Error: {}>", e.message()));
+    
+    print("Result: {}", user_name);
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ORTAK ÖZET -->
+        <section class="lesson-section">
+            <h2>📌 <span class="tr">Özet</span><span class="en" style="display:none;">Summary</span></h2>
+            <ul>
+                <li><span class="tr"><code>enum</code> sabit seçenekler tanımlar</span><span class="en" style="display:none;"><code>enum</code> defines fixed options</span></li>
+                <li><span class="tr"><code>esle</code>/<code>match</code> ile pattern matching yapılır</span><span class="en" style="display:none;"><code>esle</code>/<code>match</code> for pattern matching</span></li>
+                <li><span class="tr">Enum variants veri taşıyabilir</span><span class="en" style="display:none;">Enum variants can carry data</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="lesson-footer">
+        <a href="ders05.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+        <a href="ders07.html"><span class="tr">Sonraki: Bellek Yönetimi →</span><span class="en" style="display:none;">Next: Memory Management →</span></a>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

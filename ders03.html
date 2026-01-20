@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders 03: Kontrol Akışı | BERK 101</title>
+    <meta name="description" content="BERK'te koşullar (if/else) ve döngüler (while, for, loop) - Kontrol akışı dersi">
+    <meta name="ai-lesson" content="3">
+    <meta name="ai-topics" content="conditionals,loops,if,else,while,for,break,continue">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
+        <div class="level-switch">
+            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
+            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
+            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
+        </div>
+        <div class="lang-switch"><button class="lang-btn active" data-lang="tr">TR</button><button class="lang-btn" data-lang="en">EN</button></div>
+    </nav>
+
+    <header class="lesson-header">
+        <div class="lesson-nav">
+            <a href="ders02.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+            <span class="lesson-meta"><span class="tr">Ders 3 / 10</span><span class="en" style="display:none;">Lesson 3 / 10</span></span>
+        </div>
+        <h1 class="lesson-title"><span class="tr">🔀 Kontrol Akışı</span><span class="en" style="display:none;">🔀 Control Flow</span></h1>
+        
+        <div class="level-info-box" style="margin-top:1rem;">
+            <div class="level-info ortaokul-info">
+                <span class="level-badge">🎮 Ortaokul</span>
+                <span class="tr">Bu derste: Macera oyununda seçimler yap!</span>
+                <span class="en" style="display:none;">In this lesson: Make choices in an adventure game!</span>
+            </div>
+            <div class="level-info lise-info" style="display:flex;">
+                <span class="level-badge">📚 Lise</span>
+                <span class="tr">Bu derste: Koşullar ve döngülerle program akışını kontrol et</span>
+                <span class="en" style="display:none;">In this lesson: Control program flow with conditions and loops</span>
+            </div>
+            <div class="level-info universite-info">
+                <span class="level-badge">🎓 Üniversite</span>
+                <span class="tr">Bu derste: State machines, iterators ve kontrol flow patterns</span>
+                <span class="en" style="display:none;">In this lesson: State machines, iterators, and control flow patterns</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="lesson-content">
+        <!-- ==================== ORTAOKUL ==================== -->
+        <div class="ortaokul-content">
+            <section class="lesson-section">
+                <h2>🏰 <span class="tr">Macera Zamanı!</span><span class="en" style="display:none;">Adventure Time!</span></h2>
+                <p><span class="tr">Oyunlarda sürekli karar verirsin: "Sola mı gideyim, sağa mı?" İşte <code>eger</code> (if) böyle çalışıyor!</span><span class="en" style="display:none;">In games you always make decisions: "Go left or right?" That's how <code>eger</code> (if) works!</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Hazine Sandığı</span><span class="en" style="display:none;">Example 1: Treasure Chest</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🏴‍☠️ hazine.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon ana() {
+    degisken anahtar_var = dogru;
+    degisken sandik_acik = yanlis;
+    
+    yazdir("🏴‍☠️ Bir hazine sandığı buldun!");
+    
+    eger anahtar_var yap
+        yazdir("🔑 Anahtarı kullandın...");
+        yazdir("✨ Sandık açıldı! 💰💎💰");
+        sandik_acik = dogru;
+    degilse yap
+        yazdir("🔒 Sandık kilitli! Anahtar lazım.");
+    son
+    
+    // Sandıkta ne var?
+    eger sandik_acik yap
+        degisken altin = 100;
+        degisken elmas = 5;
+        yazdir("💰 {} altın buldun!", altin);
+        yazdir("💎 {} elmas buldun!", elmas);
+    son
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Boss Savaşı Döngüsü</span><span class="en" style="display:none;">Example 2: Boss Fight Loop</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">👹 boss_savasi.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon ana() {
+    degisken mut boss_can = 100;
+    degisken oyuncu_hasar = 25;
+    degisken mut tur = 1;
+    
+    yazdir("👹 BOSS: Karanlık Ejderha ortaya çıktı!");
+    yazdir("❤️ Boss canı: {}", boss_can);
+    
+    // Boss ölene kadar saldır!
+    iken boss_can > 0 yap
+        yazdir("\n⚔️ Tur {}: Saldırıyorsun!", tur);
+        boss_can = boss_can - oyuncu_hasar;
+        
+        eger boss_can > 0 yap
+            yazdir("👹 Boss canı: {}", boss_can);
+        degilse yap
+            yazdir("💀 Boss yenildi!");
+            yazdir("🏆 TEBRİKLER! Kazandın!");
+        son
+        
+        tur = tur + 1;
+    son
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🎯 <span class="tr">Senin Görevin!</span><span class="en" style="display:none;">Your Mission!</span></h4>
+                    <ol>
+                        <li><span class="tr">3 kapılı bir labirent yap - doğru kapıyı seçen kazanır!</span><span class="en" style="display:none;">Make a 3-door labyrinth - choose the right door to win!</span></li>
+                        <li><span class="tr">1'den 10'a kadar geri sayım yapan roket fırlatma programı yaz!</span><span class="en" style="display:none;">Write a rocket launch countdown from 10 to 1!</span></li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== LİSE ==================== -->
+        <div class="lise-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>📖 <span class="tr">Koşullar: if/else</span><span class="en" style="display:none;">Conditions: if/else</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Türkçe)</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon ana() {
+    degisken not = 75;
+    
+    // Basit koşul
+    eger not >= 50 yap
+        yazdir("✅ Geçtiniz!");
+    son
+    
+    // if-else if-else zinciri
+    eger not >= 90 yap
+        yazdir("Harf: AA");
+    degilse eger not >= 80 yap
+        yazdir("Harf: BA");
+    degilse eger not >= 70 yap
+        yazdir("Harf: BB");
+    degilse eger not >= 60 yap
+        yazdir("Harf: CB");
+    degilse eger not >= 50 yap
+        yazdir("Harf: CC");
+    degilse yap
+        yazdir("Harf: FF - Kaldınız");
+    son
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Sınav Değerlendirme</span><span class="en" style="display:none;">Example 1: Exam Evaluation</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📊 sinav.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon ana() {
+    degisken vize = 70.0;
+    degisken final_notu = 80.0;
+    
+    // Ortalama hesapla (vize %40, final %60)
+    degisken ortalama = vize * 0.4 + final_notu * 0.6;
+    
+    yazdir("📝 Vize: {} | Final: {}", vize, final_notu);
+    yazdir("📊 Ortalama: {:.1}", ortalama);
+    
+    // Değerlendirme
+    eger ortalama >= 90.0 yap
+        yazdir("🌟 Mükemmel! AA aldınız.");
+    degilse eger ortalama >= 50.0 yap
+        yazdir("✅ Dersi geçtiniz.");
+    degilse yap
+        yazdir("❌ Maalesef kaldınız.");
+    son
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Döngüler</span><span class="en" style="display:none;">Example 2: Loops</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (English)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>function main() {
+    // while loop - bilinmeyen tekrar sayısı
+    let mut password_attempts = 0;
+    let max_attempts = 3;
+    
+    while password_attempts < max_attempts do
+        print("Deneme {}/{}", password_attempts + 1, max_attempts);
+        password_attempts = password_attempts + 1;
+    end
+    
+    // for loop - bilinen tekrar sayısı
+    print("\n📅 Haftalık program:");
+    for day in ["Pzt", "Sal", "Çar", "Per", "Cum"] do
+        print("  {} - Ders var", day);
+    end
+    
+    // Range ile for
+    print("\n🔢 1'den 5'e:");
+    for i in 1..6 do
+        print("  Sayı: {}", i);
+    end
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>✏️ <span class="tr">Alıştırmalar</span><span class="en" style="display:none;">Exercises</span></h4>
+                    <ol>
+                        <li><span class="tr">Yaş girildiğinde ehliyet alabilir mi kontrol eden program yazın.</span><span class="en" style="display:none;">Check if a person can get a driver's license based on age.</span></li>
+                        <li><span class="tr">1-100 arası çift sayıları yazdıran program yazın.</span><span class="en" style="display:none;">Print even numbers from 1-100.</span></li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ÜNİVERSİTE ==================== -->
+        <div class="universite-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>🎯 <span class="tr">Kontrol Akışı Patterns</span><span class="en" style="display:none;">Control Flow Patterns</span></h2>
+                <ul>
+                    <li><span class="tr">Early return pattern</span><span class="en" style="display:none;">Early return pattern</span></li>
+                    <li><span class="tr">Guard clauses</span><span class="en" style="display:none;">Guard clauses</span></li>
+                    <li><span class="tr">Loop labels ve nested break</span><span class="en" style="display:none;">Loop labels and nested break</span></li>
+                    <li><span class="tr">Iterator patterns</span><span class="en" style="display:none;">Iterator patterns</span></li>
+                </ul>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: State Machine</span><span class="en" style="display:none;">Example 1: State Machine</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Advanced)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// TCP Connection State Machine
+enum ConnectionState {
+    Closed,
+    Listen,
+    SynSent,
+    SynReceived,
+    Established,
+    FinWait,
+}
+
+function handle_state(state: ConnectionState, event: &str) -> ConnectionState {
+    match (state, event) {
+        (ConnectionState::Closed, "open") => {
+            print("[STATE] Closed -> Listen");
+            ConnectionState::Listen
+        },
+        (ConnectionState::Listen, "syn_received") => {
+            print("[STATE] Listen -> SynReceived");
+            ConnectionState::SynReceived
+        },
+        (ConnectionState::SynReceived, "ack_received") => {
+            print("[STATE] SynReceived -> Established");
+            ConnectionState::Established
+        },
+        (ConnectionState::Established, "close") => {
+            print("[STATE] Established -> FinWait");
+            ConnectionState::FinWait
+        },
+        (ConnectionState::FinWait, "ack_received") => {
+            print("[STATE] FinWait -> Closed");
+            ConnectionState::Closed
+        },
+        _ => {
+            print("[WARN] Invalid transition");
+            state
+        }
+    }
+}
+
+function main() {
+    let mut state = ConnectionState::Closed;
+    
+    state = handle_state(state, "open");
+    state = handle_state(state, "syn_received");
+    state = handle_state(state, "ack_received");
+    state = handle_state(state, "close");
+    state = handle_state(state, "ack_received");
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Iterator ve Loop Labels</span><span class="en" style="display:none;">Example 2: Iterator and Loop Labels</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Iterators)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>function main() {
+    let matrix = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+    ];
+    
+    // Labeled loop for nested break
+    'outer: for row in matrix.iter().enumerate() {
+        for (col, &val) in row.1.iter().enumerate() {
+            print("matrix[{}][{}] = {}", row.0, col, val);
+            if val == 5 {
+                print("Found target! Breaking outer loop.");
+                break 'outer;
+            }
+        }
+    }
+    
+    // Iterator chain
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    
+    let result: i32 = numbers.iter()
+        .filter(|&&x| x % 2 == 0)  // Even numbers
+        .map(|&x| x * x)           // Square them
+        .take(3)                    // First 3
+        .sum();                     // Sum
+    
+    print("Sum of first 3 even squares: {}", result);  // 4 + 16 + 36 = 56
+    
+    // Early return with guard clause
+    print("Validation: {}", validate_input(-5));
+}
+
+function validate_input(value: i32) -> Result<i32, &'static str> {
+    // Guard clauses - early return pattern
+    if value < 0 {
+        return Err("Value must be non-negative");
+    }
+    if value > 100 {
+        return Err("Value must be <= 100");
+    }
+    
+    // Main logic
+    Ok(value * 2)
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🎓 <span class="tr">İleri Seviye Alıştırmalar</span><span class="en" style="display:none;">Advanced Exercises</span></h4>
+                    <ol>
+                        <li><span class="tr">Bir parser için state machine implemente edin (JSON/XML basit subset).</span><span class="en" style="display:none;">Implement a state machine for a parser (simple JSON/XML subset).</span></li>
+                        <li><span class="tr">Iterator adaptor chain ile veri pipeline oluşturun.</span><span class="en" style="display:none;">Create a data pipeline with iterator adaptor chain.</span></li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- ORTAK ÖZET -->
+        <section class="lesson-section">
+            <h2>📌 <span class="tr">Özet</span><span class="en" style="display:none;">Summary</span></h2>
+            <ul>
+                <li><span class="tr"><code>eger</code>/<code>if</code> - koşullu çalıştırma</span><span class="en" style="display:none;"><code>eger</code>/<code>if</code> - conditional execution</span></li>
+                <li><span class="tr"><code>iken</code>/<code>while</code> - koşul doğruyken döngü</span><span class="en" style="display:none;"><code>iken</code>/<code>while</code> - loop while condition is true</span></li>
+                <li><span class="tr"><code>icin</code>/<code>for</code> - koleksiyon üzerinde döngü</span><span class="en" style="display:none;"><code>icin</code>/<code>for</code> - loop over collection</span></li>
+                <li><span class="tr"><code>dur</code>/<code>break</code> ve <code>devam</code>/<code>continue</code> - döngü kontrolü</span><span class="en" style="display:none;"><code>dur</code>/<code>break</code> and <code>devam</code>/<code>continue</code> - loop control</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="lesson-footer">
+        <a href="ders02.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+        <a href="ders04.html"><span class="tr">Sonraki: Fonksiyonlar →</span><span class="en" style="display:none;">Next: Functions →</span></a>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

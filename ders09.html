@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders 09: Generics ve Traits | BERK 101</title>
+    <meta name="description" content="BERK'te generic tipler ve trait tanımlama">
+    <meta name="ai-lesson" content="9">
+    <meta name="ai-topics" content="generics,traits,impl,where,bounds,polymorphism">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
+        <div class="level-switch">
+            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
+            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
+            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
+        </div>
+        <div class="lang-switch"><button class="lang-btn active" data-lang="tr">TR</button><button class="lang-btn" data-lang="en">EN</button></div>
+    </nav>
+
+    <header class="lesson-header">
+        <div class="lesson-nav">
+            <a href="ders08.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+            <span class="lesson-meta"><span class="tr">Ders 9 / 10</span><span class="en" style="display:none;">Lesson 9 / 10</span></span>
+        </div>
+        <h1 class="lesson-title"><span class="tr">🔷 Generics ve Traits</span><span class="en" style="display:none;">🔷 Generics and Traits</span></h1>
+        
+        <div class="level-info-box" style="margin-top:1rem;">
+            <div class="level-info ortaokul-info">
+                <span class="level-badge">🎮 Ortaokul</span>
+                <span class="tr">Bu derste: Evrensel kutu - Her şeyi sakla!</span>
+                <span class="en" style="display:none;">In this lesson: Universal box - Store anything!</span>
+            </div>
+            <div class="level-info lise-info" style="display:flex;">
+                <span class="level-badge">📚 Lise</span>
+                <span class="tr">Bu derste: Tip parametreleri ve interface tanımlama</span>
+                <span class="en" style="display:none;">In this lesson: Type parameters and interface definition</span>
+            </div>
+            <div class="level-info universite-info">
+                <span class="level-badge">🎓 Üniversite</span>
+                <span class="tr">Bu derste: Associated types, trait objects ve monomorphization</span>
+                <span class="en" style="display:none;">In this lesson: Associated types, trait objects, and monomorphization</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="lesson-content">
+        <!-- ==================== ORTAOKUL ==================== -->
+        <div class="ortaokul-content">
+            <section class="lesson-section">
+                <h2>📦 <span class="tr">Sihirli Kutu!</span><span class="en" style="display:none;">Magic Box!</span></h2>
+                <p><span class="tr">Bir kutu yap, içine ne koyarsan koy! Elmas, altın, silah... Hepsi aynı kutuya sığar!</span><span class="en" style="display:none;">Make a box, put anything in it! Diamond, gold, weapons... All fit in the same box!</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Evrensel Sandık</span><span class="en" style="display:none;">Example 1: Universal Chest</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📦 sandik.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// T = Herhangi bir tip!
+yapi Sandik[T] {
+    icerik: T,
+    kilit: mantiksal,
+}
+
+impl[T] Sandik[T] {
+    fonksiyon yeni(esya: T) -> Sandik[T] {
+        don Sandik {
+            icerik: esya,
+            kilit: yanlis,
+        };
+    }
+    
+    fonksiyon ac(&mut self) -> &T {
+        self.kilit = yanlis;
+        yazdir("🔓 Sandık açıldı!");
+        don &self.icerik;
+    }
+    
+    fonksiyon kilitle(&mut self) {
+        self.kilit = dogru;
+        yazdir("🔒 Sandık kilitlendi!");
+    }
+}
+
+fonksiyon ana() {
+    // Elmas sandığı
+    degisken mut elmas_sandigi = Sandik::yeni("💎 Efsanevi Elmas");
+    yazdir("Sandık içeriği: {}", elmas_sandigi.ac());
+    
+    // Altın sandığı
+    degisken mut altin_sandigi = Sandik::yeni(1000);
+    yazdir("Altın miktarı: {} 💰", altin_sandigi.ac());
+    
+    // Silah sandığı
+    degisken mut silah_sandigi = Sandik::yeni("⚔️ Ejder Kılıcı");
+    yazdir("Silah: {}", silah_sandigi.ac());
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Yetenek Sistemi</span><span class="en" style="display:none;">Example 2: Ability System</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">⚡ yetenekler.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// Trait = Yetenek! Bunu yapabilen herkes...
+ozellik Saldirabilir {
+    fonksiyon saldir(&self) -> tamsayi;
+    fonksiyon saldir_ismi(&self) -> metin;
+}
+
+yapi Savasci {
+    guc: tamsayi,
+}
+
+yapi Buyucu {
+    buyu_gucu: tamsayi,
+}
+
+// Savaşçı saldırabilir
+impl Saldirabilir icin Savasci {
+    fonksiyon saldir(&self) -> tamsayi {
+        don self.guc * 2;
+    }
+    fonksiyon saldir_ismi(&self) -> metin {
+        don "⚔️ Kılıç Darbesi";
+    }
+}
+
+// Büyücü de saldırabilir
+impl Saldirabilir icin Buyucu {
+    fonksiyon saldir(&self) -> tamsayi {
+        don self.buyu_gucu * 3;
+    }
+    fonksiyon saldir_ismi(&self) -> metin {
+        don "🔥 Ateş Topu";
+    }
+}
+
+// Her saldırabilene çalışır!
+fonksiyon savas_yap[T: Saldirabilir](karakter: &T) {
+    yazdir("{}: {} hasar!", karakter.saldir_ismi(), karakter.saldir());
+}
+
+fonksiyon ana() {
+    degisken savasci = Savasci { guc: 50 };
+    degisken buyucu = Buyucu { buyu_gucu: 40 };
+    
+    savas_yap(&savasci);  // ⚔️ Kılıç Darbesi: 100 hasar!
+    savas_yap(&buyucu);   // 🔥 Ateş Topu: 120 hasar!
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== LİSE ==================== -->
+        <div class="lise-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>📖 <span class="tr">Generics Nedir?</span><span class="en" style="display:none;">What are Generics?</span></h2>
+                <p><span class="tr">Generics, farklı tipler için aynı kodu kullanmanı sağlar. Kod tekrarını önler!</span><span class="en" style="display:none;">Generics let you use the same code for different types. Prevents code duplication!</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Generic Veri Yapıları</span><span class="en" style="display:none;">Example 1: Generic Data Structures</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📊 structures.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// Generic stack
+yapi Yigin[T] {
+    elemanlar: Vektor[T],
+}
+
+impl[T] Yigin[T] {
+    fonksiyon yeni() -> Yigin[T] {
+        Yigin { elemanlar: Vektor::yeni() }
+    }
+    
+    fonksiyon ekle(&mut self, eleman: T) {
+        self.elemanlar.ekle(eleman);
+    }
+    
+    fonksiyon cikar(&mut self) -> Belki[T] {
+        self.elemanlar.son_cikar()
+    }
+    
+    fonksiyon bos_mu(&self) -> mantiksal {
+        self.elemanlar.bos_mu()
+    }
+    
+    fonksiyon boyut(&self) -> tamsayi {
+        self.elemanlar.uzunluk()
+    }
+}
+
+fonksiyon ana() {
+    // Sayı yığını
+    degisken mut sayilar = Yigin::yeni();
+    sayilar.ekle(1);
+    sayilar.ekle(2);
+    sayilar.ekle(3);
+    
+    iken !sayilar.bos_mu() yap
+        yazdir("Çıkan: {:?}", sayilar.cikar());
+    son
+    
+    // Metin yığını - aynı kod!
+    degisken mut metinler = Yigin::yeni();
+    metinler.ekle("Merhaba");
+    metinler.ekle("Dünya");
+    
+    yazdir("Metin: {:?}", metinler.cikar());
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Traits ile Polimorfizm</span><span class="en" style="display:none;">Example 2: Polymorphism with Traits</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🎨 shapes.berk</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// Interface tanımla
+trait Drawable {
+    function draw(&self);
+    function area(&self) -> f64;
+}
+
+struct Circle {
+    radius: f64,
+}
+
+struct Rectangle {
+    width: f64,
+    height: f64,
+}
+
+impl Drawable for Circle {
+    function draw(&self) {
+        print!("⭕ Circle (r={})", self.radius);
+    }
+    function area(&self) -> f64 {
+        3.14159 * self.radius * self.radius
+    }
+}
+
+impl Drawable for Rectangle {
+    function draw(&self) {
+        print!("▭ Rectangle ({}x{})", self.width, self.height);
+    }
+    function area(&self) -> f64 {
+        self.width * self.height
+    }
+}
+
+// Generic fonksiyon trait bound ile
+function print_area<T: Drawable>(shape: &T) {
+    shape.draw();
+    print!("  Area: {:.2}", shape.area());
+}
+
+function main() {
+    let circle = Circle { radius: 5.0 };
+    let rect = Rectangle { width: 4.0, height: 6.0 };
+    
+    print_area(&circle);
+    print_area(&rect);
+    
+    // Total area
+    let shapes: Vec<&dyn Drawable> = vec![&circle, &rect];
+    let total: f64 = shapes.iter().map(|s| s.area()).sum();
+    print!("\nTotal area: {:.2}", total);
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ÜNİVERSİTE ==================== -->
+        <div class="universite-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>🎯 <span class="tr">Advanced Generics</span><span class="en" style="display:none;">Advanced Generics</span></h2>
+                <ul>
+                    <li><span class="tr">Associated types</span></li>
+                    <li><span class="tr">Trait objects (dyn)</span></li>
+                    <li><span class="tr">Where clauses</span></li>
+                    <li><span class="tr">Const generics</span></li>
+                </ul>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Iterator Pattern</span><span class="en" style="display:none;">Example 1: Iterator Pattern</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Iterator)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// Associated type kullanımı
+trait Iterator {
+    type Item;  // Associated type
+    
+    function next(&mut self) -> Option<Self::Item>;
+    
+    // Default implementations
+    function map<B, F>(self, f: F) -> Map<Self, F>
+    where
+        Self: Sized,
+        F: FnMut(Self::Item) -> B,
+    {
+        Map { iter: self, f }
+    }
+    
+    function filter<P>(self, predicate: P) -> Filter<Self, P>
+    where
+        Self: Sized,
+        P: FnMut(&Self::Item) -> bool,
+    {
+        Filter { iter: self, predicate }
+    }
+    
+    function collect<B>(self) -> B
+    where
+        Self: Sized,
+        B: FromIterator<Self::Item>,
+    {
+        FromIterator::from_iter(self)
+    }
+}
+
+// Custom iterator
+struct Counter {
+    current: u32,
+    max: u32,
+}
+
+impl Iterator for Counter {
+    type Item = u32;
+    
+    function next(&mut self) -> Option<Self::Item> {
+        if self.current < self.max {
+            let val = self.current;
+            self.current += 1;
+            Some(val)
+        } else {
+            None
+        }
+    }
+}
+
+function main() {
+    let counter = Counter { current: 0, max: 5 };
+    
+    let result: Vec<u32> = counter
+        .map(|x| x * 2)
+        .filter(|&x| x > 2)
+        .collect();
+    
+    print!("Result: {:?}", result);  // [4, 6, 8]
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Type-Level Programming</span><span class="en" style="display:none;">Example 2: Type-Level Programming</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Type-Level)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// Const generics for fixed-size arrays
+struct Matrix<T, const ROWS: usize, const COLS: usize> {
+    data: [[T; COLS]; ROWS],
+}
+
+impl<T: Default + Copy, const ROWS: usize, const COLS: usize> Matrix<T, ROWS, COLS> {
+    function new() -> Self {
+        Matrix {
+            data: [[T::default(); COLS]; ROWS],
+        }
+    }
+    
+    function get(&self, row: usize, col: usize) -> T {
+        self.data[row][col]
+    }
+    
+    function set(&mut self, row: usize, col: usize, value: T) {
+        self.data[row][col] = value;
+    }
+}
+
+// Matrix multiplication with compile-time dimension check
+impl<T, const M: usize, const N: usize> Matrix<T, M, N>
+where
+    T: Default + Copy + std::ops::Add<Output = T> + std::ops::Mul<Output = T>,
+{
+    function multiply<const P: usize>(
+        &self,
+        other: &Matrix<T, N, P>,
+    ) -> Matrix<T, M, P> {
+        let mut result = Matrix::new();
+        for i in 0..M {
+            for j in 0..P {
+                let mut sum = T::default();
+                for k in 0..N {
+                    sum = sum + self.data[i][k] * other.data[k][j];
+                }
+                result.data[i][j] = sum;
+            }
+        }
+        result
+    }
+}
+
+// Phantom types for type-state pattern
+use std::marker::PhantomData;
+
+struct Locked;
+struct Unlocked;
+
+struct Door<State> {
+    _state: PhantomData<State>,
+}
+
+impl Door<Locked> {
+    function unlock(self) -> Door<Unlocked> {
+        print!("Door unlocked");
+        Door { _state: PhantomData }
+    }
+}
+
+impl Door<Unlocked> {
+    function open(&self) {
+        print!("Door opened");
+    }
+    
+    function lock(self) -> Door<Locked> {
+        print!("Door locked");
+        Door { _state: PhantomData }
+    }
+}
+
+function main() {
+    // Matrix example
+    let mut m1: Matrix<i32, 2, 3> = Matrix::new();
+    let m2: Matrix<i32, 3, 2> = Matrix::new();
+    let _result: Matrix<i32, 2, 2> = m1.multiply(&m2);  // Compile-time checked!
+    
+    // Type-state pattern
+    let door: Door<Locked> = Door { _state: PhantomData };
+    let door = door.unlock();  // Now Door<Unlocked>
+    door.open();               // OK: open() only on Unlocked
+    // door.unlock();          // Compile error: no unlock() on Unlocked
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ORTAK ÖZET -->
+        <section class="lesson-section">
+            <h2>📌 <span class="tr">Özet</span><span class="en" style="display:none;">Summary</span></h2>
+            <ul>
+                <li><span class="tr"><code>&lt;T&gt;</code> ile generic tip parametresi tanımlanır</span><span class="en" style="display:none;"><code>&lt;T&gt;</code> defines generic type parameter</span></li>
+                <li><span class="tr"><code>trait</code>/<code>ozellik</code> ile davranış tanımlanır</span><span class="en" style="display:none;"><code>trait</code>/<code>ozellik</code> defines behavior</span></li>
+                <li><span class="tr"><code>T: Trait</code> ile tip kısıtlaması yapılır</span><span class="en" style="display:none;"><code>T: Trait</code> constrains the type</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="lesson-footer">
+        <a href="ders08.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+        <a href="ders10.html"><span class="tr">Sonraki: SIMD →</span><span class="en" style="display:none;">Next: SIMD →</span></a>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

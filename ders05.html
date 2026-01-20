@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders 05: Yapılar (Struct) | BERK 101</title>
+    <meta name="description" content="BERK'te struct tanımlama, alanlar ve metotlar">
+    <meta name="ai-lesson" content="5">
+    <meta name="ai-topics" content="struct,fields,methods,impl,constructor">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
+        <div class="level-switch">
+            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
+            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
+            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
+        </div>
+        <div class="lang-switch"><button class="lang-btn active" data-lang="tr">TR</button><button class="lang-btn" data-lang="en">EN</button></div>
+    </nav>
+
+    <header class="lesson-header">
+        <div class="lesson-nav">
+            <a href="ders04.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+            <span class="lesson-meta"><span class="tr">Ders 5 / 10</span><span class="en" style="display:none;">Lesson 5 / 10</span></span>
+        </div>
+        <h1 class="lesson-title"><span class="tr">🏗️ Yapılar (Struct)</span><span class="en" style="display:none;">🏗️ Structures (Struct)</span></h1>
+        
+        <div class="level-info-box" style="margin-top:1rem;">
+            <div class="level-info ortaokul-info">
+                <span class="level-badge">🎮 Ortaokul</span>
+                <span class="tr">Bu derste: Pokemon gibi yaratıklar tasarla!</span>
+                <span class="en" style="display:none;">In this lesson: Design creatures like Pokemon!</span>
+            </div>
+            <div class="level-info lise-info" style="display:flex;">
+                <span class="level-badge">📚 Lise</span>
+                <span class="tr">Bu derste: Özel veri tipleri oluştur</span>
+                <span class="en" style="display:none;">In this lesson: Create custom data types</span>
+            </div>
+            <div class="level-info universite-info">
+                <span class="level-badge">🎓 Üniversite</span>
+                <span class="tr">Bu derste: Data modeling, encapsulation ve builder pattern</span>
+                <span class="en" style="display:none;">In this lesson: Data modeling, encapsulation, and builder pattern</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="lesson-content">
+        <!-- ==================== ORTAOKUL ==================== -->
+        <div class="ortaokul-content">
+            <section class="lesson-section">
+                <h2>🎒 <span class="tr">Kendi Yaratığını Tasarla!</span><span class="en" style="display:none;">Design Your Own Creature!</span></h2>
+                <p><span class="tr">Struct = Şablon! Bir yaratığın tüm özelliklerini bir arada tutabilirsin.</span><span class="en" style="display:none;">Struct = Template! Keep all creature properties together.</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Evcil Hayvan Oyunu</span><span class="en" style="display:none;">Example 1: Pet Game</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🐾 pet.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// 🐾 Evcil hayvan şablonu
+yapi EvcilHayvan {
+    isim: metin,
+    tur: metin,
+    yas: tamsayi,
+    mutluluk: tamsayi,
+    aclik: tamsayi,
+}
+
+// Evcil hayvana özellikler ekle
+impl EvcilHayvan {
+    // Yeni hayvan oluştur
+    fonksiyon yeni(isim: metin, tur: metin) -> EvcilHayvan {
+        don EvcilHayvan {
+            isim: isim,
+            tur: tur,
+            yas: 0,
+            mutluluk: 50,
+            aclik: 50,
+        };
+    }
+    
+    // Besle 🍖
+    fonksiyon besle(&mut self) {
+        self.aclik = self.aclik - 20;
+        self.mutluluk = self.mutluluk + 10;
+        yazdir("🍖 {} yemek yedi! Mutluluk: {}", self.isim, self.mutluluk);
+    }
+    
+    // Oyna 🎾
+    fonksiyon oyna(&mut self) {
+        self.mutluluk = self.mutluluk + 20;
+        self.aclik = self.aclik + 10;
+        yazdir("🎾 {} ile oynadın! Mutluluk: {}", self.isim, self.mutluluk);
+    }
+    
+    // Durum göster
+    fonksiyon durum(&self) {
+        yazdir("╔══════════════════╗");
+        yazdir("║ 🐾 {} ({})     ", self.isim, self.tur);
+        yazdir("║ 😊 Mutluluk: {}  ", self.mutluluk);
+        yazdir("║ 🍖 Açlık: {}     ", self.aclik);
+        yazdir("╚══════════════════╝");
+    }
+}
+
+fonksiyon ana() {
+    degisken mut kopek = EvcilHayvan::yeni("Karabaş", "🐕 Köpek");
+    
+    kopek.durum();
+    kopek.oyna();
+    kopek.besle();
+    kopek.durum();
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Monster Kartları</span><span class="en" style="display:none;">Example 2: Monster Cards</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">👾 monsters.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>yapi Canavar {
+    isim: metin,
+    element: metin,
+    can: tamsayi,
+    saldiri: tamsayi,
+    savunma: tamsayi,
+}
+
+impl Canavar {
+    fonksiyon kart_goster(&self) {
+        yazdir("┌─────────────────────┐");
+        yazdir("│ {} {}              ", self.element, self.isim);
+        yazdir("├─────────────────────┤");
+        yazdir("│ ❤️  HP: {:3}         │", self.can);
+        yazdir("│ ⚔️  ATK: {:3}        │", self.saldiri);
+        yazdir("│ 🛡️  DEF: {:3}        │", self.savunma);
+        yazdir("└─────────────────────┘");
+    }
+    
+    fonksiyon saldir(&self, hedef: &mut Canavar) {
+        degisken hasar = self.saldiri - hedef.savunma;
+        eger hasar > 0 yap
+            hedef.can = hedef.can - hasar;
+            yazdir("💥 {} -> {} için {} hasar!", self.isim, hedef.isim, hasar);
+        degilse yap
+            yazdir("🛡️ Saldırı engellendi!");
+        son
+    }
+}
+
+fonksiyon ana() {
+    degisken mut ejderha = Canavar {
+        isim: "Ateş Ejderhası",
+        element: "🔥",
+        can: 100,
+        saldiri: 40,
+        savunma: 20,
+    };
+    
+    degisken mut golem = Canavar {
+        isim: "Kaya Golemi",
+        element: "🪨",
+        can: 150,
+        saldiri: 25,
+        savunma: 35,
+    };
+    
+    ejderha.kart_goster();
+    golem.kart_goster();
+    
+    yazdir("\n⚔️ SAVAŞ!\n");
+    ejderha.saldir(&mut golem);
+    golem.kart_goster();
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== LİSE ==================== -->
+        <div class="lise-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>📖 <span class="tr">Struct Nedir?</span><span class="en" style="display:none;">What is a Struct?</span></h2>
+                <p><span class="tr">Struct, ilişkili verileri bir arada tutan özel bir veri tipidir. Sınıflara benzer ama daha basit.</span><span class="en" style="display:none;">A struct is a custom data type that groups related data. Similar to classes but simpler.</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Öğrenci Sistemi</span><span class="en" style="display:none;">Example 1: Student System</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📚 ogrenci.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>yapi Ogrenci {
+    numara: tamsayi,
+    isim: metin,
+    bolum: metin,
+    notlar: Vektor[ondalik],
+}
+
+impl Ogrenci {
+    fonksiyon yeni(numara: tamsayi, isim: metin, bolum: metin) -> Ogrenci {
+        don Ogrenci {
+            numara: numara,
+            isim: isim,
+            bolum: bolum,
+            notlar: Vektor::yeni(),
+        };
+    }
+    
+    fonksiyon not_ekle(&mut self, not: ondalik) {
+        self.notlar.ekle(not);
+    }
+    
+    fonksiyon ortalama(&self) -> ondalik {
+        eger self.notlar.bos_mu() yap
+            don 0.0;
+        son
+        degisken toplam: ondalik = 0.0;
+        icin not in &self.notlar {
+            toplam = toplam + not;
+        }
+        don toplam / self.notlar.uzunluk() as ondalik;
+    }
+    
+    fonksiyon bilgi_goster(&self) {
+        yazdir("📋 Öğrenci Bilgisi");
+        yazdir("  No: {}", self.numara);
+        yazdir("  Ad: {}", self.isim);
+        yazdir("  Bölüm: {}", self.bolum);
+        yazdir("  Ortalama: {:.2}", self.ortalama());
+    }
+}
+
+fonksiyon ana() {
+    degisken mut ogrenci = Ogrenci::yeni(12345, "Ayşe Yılmaz", "Bilgisayar Müh.");
+    
+    ogrenci.not_ekle(85.0);
+    ogrenci.not_ekle(90.0);
+    ogrenci.not_ekle(78.5);
+    
+    ogrenci.bilgi_goster();
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Ürün Yönetimi</span><span class="en" style="display:none;">Example 2: Product Management</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🛒 product.berk</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>struct Product {
+    id: int,
+    name: string,
+    price: float,
+    stock: int,
+}
+
+impl Product {
+    function new(id: int, name: string, price: float, stock: int) -> Product {
+        Product { id, name, price, stock }
+    }
+    
+    function is_available(&self) -> bool {
+        self.stock > 0
+    }
+    
+    function apply_discount(&mut self, percent: float) {
+        self.price = self.price * (1.0 - percent / 100.0);
+    }
+    
+    function sell(&mut self, quantity: int) -> bool {
+        if quantity <= self.stock {
+            self.stock = self.stock - quantity;
+            return true;
+        }
+        return false;
+    }
+    
+    function display(&self) {
+        print("🏷️ {} (ID: {})", self.name, self.id);
+        print("   Fiyat: {:.2}₺", self.price);
+        print("   Stok: {} adet", self.stock);
+    }
+}
+
+function main() {
+    let mut laptop = Product::new(1, "Gaming Laptop", 25000.0, 10);
+    
+    laptop.display();
+    
+    laptop.apply_discount(15.0);  // %15 indirim
+    print("\n📢 İndirimli fiyat:");
+    laptop.display();
+    
+    if laptop.sell(2) {
+        print("\n✅ 2 adet satıldı!");
+    }
+    laptop.display();
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ÜNİVERSİTE ==================== -->
+        <div class="universite-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>🎯 <span class="tr">İleri Struct Kavramları</span><span class="en" style="display:none;">Advanced Struct Concepts</span></h2>
+                <ul>
+                    <li><span class="tr">Builder pattern</span><span class="en" style="display:none;">Builder pattern</span></li>
+                    <li><span class="tr">Tuple structs ve unit structs</span><span class="en" style="display:none;">Tuple structs and unit structs</span></li>
+                    <li><span class="tr">Visibility (pub) ve encapsulation</span><span class="en" style="display:none;">Visibility (pub) and encapsulation</span></li>
+                    <li><span class="tr">Derive macros (#[derive(...)])</span><span class="en" style="display:none;">Derive macros</span></li>
+                </ul>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Builder Pattern</span><span class="en" style="display:none;">Example 1: Builder Pattern</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Builder)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>#[derive(Debug, Clone)]
+struct HttpRequest {
+    method: String,
+    url: String,
+    headers: HashMap<String, String>,
+    body: Option<String>,
+    timeout: Duration,
+}
+
+struct HttpRequestBuilder {
+    method: String,
+    url: String,
+    headers: HashMap<String, String>,
+    body: Option<String>,
+    timeout: Duration,
+}
+
+impl HttpRequestBuilder {
+    function new(url: &str) -> Self {
+        HttpRequestBuilder {
+            method: "GET".to_string(),
+            url: url.to_string(),
+            headers: HashMap::new(),
+            body: None,
+            timeout: Duration::from_secs(30),
+        }
+    }
+    
+    function method(mut self, method: &str) -> Self {
+        self.method = method.to_string();
+        self
+    }
+    
+    function header(mut self, key: &str, value: &str) -> Self {
+        self.headers.insert(key.to_string(), value.to_string());
+        self
+    }
+    
+    function body(mut self, body: &str) -> Self {
+        self.body = Some(body.to_string());
+        self
+    }
+    
+    function timeout(mut self, secs: u64) -> Self {
+        self.timeout = Duration::from_secs(secs);
+        self
+    }
+    
+    function build(self) -> HttpRequest {
+        HttpRequest {
+            method: self.method,
+            url: self.url,
+            headers: self.headers,
+            body: self.body,
+            timeout: self.timeout,
+        }
+    }
+}
+
+function main() {
+    let request = HttpRequestBuilder::new("https://api.example.com/users")
+        .method("POST")
+        .header("Content-Type", "application/json")
+        .header("Authorization", "Bearer token123")
+        .body(r#"{"name": "John"}"#)
+        .timeout(60)
+        .build();
+    
+    print("Request: {:?}", request);
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Domain Modeling</span><span class="en" style="display:none;">Example 2: Domain Modeling</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Domain)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// Newtype pattern for type safety
+struct UserId(u64);
+struct Email(String);
+struct Money(i64);  // Cents to avoid float precision
+
+impl Money {
+    function from_dollars(dollars: f64) -> Self {
+        Money((dollars * 100.0).round() as i64)
+    }
+    
+    function as_dollars(&self) -> f64 {
+        self.0 as f64 / 100.0
+    }
+}
+
+// Domain entity with invariants
+struct BankAccount {
+    id: UserId,
+    owner_email: Email,
+    balance: Money,
+    is_active: bool,
+}
+
+impl BankAccount {
+    function deposit(&mut self, amount: Money) -> Result<(), &'static str> {
+        if !self.is_active {
+            return Err("Account is not active");
+        }
+        if amount.0 <= 0 {
+            return Err("Deposit amount must be positive");
+        }
+        self.balance = Money(self.balance.0 + amount.0);
+        Ok(())
+    }
+    
+    function withdraw(&mut self, amount: Money) -> Result<(), &'static str> {
+        if !self.is_active {
+            return Err("Account is not active");
+        }
+        if amount.0 <= 0 {
+            return Err("Withdrawal amount must be positive");
+        }
+        if self.balance.0 < amount.0 {
+            return Err("Insufficient funds");
+        }
+        self.balance = Money(self.balance.0 - amount.0);
+        Ok(())
+    }
+}
+
+function main() {
+    let mut account = BankAccount {
+        id: UserId(12345),
+        owner_email: Email("user@example.com".to_string()),
+        balance: Money::from_dollars(100.0),
+        is_active: true,
+    };
+    
+    match account.deposit(Money::from_dollars(50.0)) {
+        Ok(_) => print("Deposit successful"),
+        Err(e) => print("Error: {}", e),
+    }
+    
+    print("Balance: ${:.2}", account.balance.as_dollars());
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ORTAK ÖZET -->
+        <section class="lesson-section">
+            <h2>📌 <span class="tr">Özet</span><span class="en" style="display:none;">Summary</span></h2>
+            <ul>
+                <li><span class="tr"><code>yapi</code>/<code>struct</code> ile yapı tanımlanır</span><span class="en" style="display:none;"><code>yapi</code>/<code>struct</code> defines a structure</span></li>
+                <li><span class="tr"><code>impl</code> bloğu ile metotlar eklenir</span><span class="en" style="display:none;"><code>impl</code> block adds methods</span></li>
+                <li><span class="tr"><code>&self</code> okuma, <code>&mut self</code> değiştirme için</span><span class="en" style="display:none;"><code>&self</code> for reading, <code>&mut self</code> for modifying</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="lesson-footer">
+        <a href="ders04.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+        <a href="ders06.html"><span class="tr">Sonraki: Enum →</span><span class="en" style="display:none;">Next: Enum →</span></a>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

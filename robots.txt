@@ -1,0 +1,31 @@
+# BERK Learn Course - Robot Access Rules
+User-agent: *
+Allow: /
+
+# AI Crawlers Welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap location
+Sitemap: https://arslantasm.github.io/berk_pages/learn/sitemap.xml
+
+# LLM-friendly content file
+# See: llms.txt for structured course information

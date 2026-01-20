@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders 07: Bellek Yönetimi | BERK 101</title>
+    <meta name="description" content="BERK'te ownership, borrowing ve lifetime kavramları">
+    <meta name="ai-lesson" content="7">
+    <meta name="ai-topics" content="ownership,borrowing,lifetime,references,memory,stack,heap">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
+        <div class="level-switch">
+            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
+            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
+            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
+        </div>
+        <div class="lang-switch"><button class="lang-btn active" data-lang="tr">TR</button><button class="lang-btn" data-lang="en">EN</button></div>
+    </nav>
+
+    <header class="lesson-header">
+        <div class="lesson-nav">
+            <a href="ders06.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+            <span class="lesson-meta"><span class="tr">Ders 7 / 10</span><span class="en" style="display:none;">Lesson 7 / 10</span></span>
+        </div>
+        <h1 class="lesson-title"><span class="tr">🧠 Bellek Yönetimi</span><span class="en" style="display:none;">🧠 Memory Management</span></h1>
+        
+        <div class="level-info-box" style="margin-top:1rem;">
+            <div class="level-info ortaokul-info">
+                <span class="level-badge">🎮 Ortaokul</span>
+                <span class="tr">Bu derste: Oyuncak ödünç verme ve geri alma!</span>
+                <span class="en" style="display:none;">In this lesson: Borrowing and returning toys!</span>
+            </div>
+            <div class="level-info lise-info" style="display:flex;">
+                <span class="level-badge">📚 Lise</span>
+                <span class="tr">Bu derste: Ownership ve borrowing temelleri</span>
+                <span class="en" style="display:none;">In this lesson: Ownership and borrowing basics</span>
+            </div>
+            <div class="level-info universite-info">
+                <span class="level-badge">🎓 Üniversite</span>
+                <span class="tr">Bu derste: Lifetime, borrow checker ve zero-cost abstractions</span>
+                <span class="en" style="display:none;">In this lesson: Lifetime, borrow checker, and zero-cost abstractions</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="lesson-content">
+        <!-- ==================== ORTAOKUL ==================== -->
+        <div class="ortaokul-content">
+            <section class="lesson-section">
+                <h2>🎁 <span class="tr">Sahiplik Nedir?</span><span class="en" style="display:none;">What is Ownership?</span></h2>
+                <p><span class="tr">Her oyuncağın bir sahibi var. Bir arkadaşına verirsen, artık senin değil! Ama ödünç verirsen geri alırsın. 🧸</span><span class="en" style="display:none;">Every toy has an owner. If you give it to a friend, it's not yours anymore! But if you lend it, you get it back. 🧸</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Oyuncak Değişimi</span><span class="en" style="display:none;">Example 1: Toy Trading</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🧸 oyuncak.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// Sahiplik - Bir oyuncağın tek sahibi var!
+fonksiyon ana() {
+    // Ahmet'in bir robot oyuncağı var
+    degisken robot = "🤖 Süper Robot";
+    yazdir("Ahmet'in oyuncağı: {}", robot);
+    
+    // Ahmet robotu Ayşe'ye VERDİ (sahiplik geçti)
+    degisken aysenin_robotu = robot;
+    yazdir("Ayşe'nin yeni oyuncağı: {}", aysenin_robotu);
+    
+    // ❌ HATA! robot artık Ahmet'te değil!
+    // yazdir("Ahmet'in oyuncağı: {}", robot);  // Bu çalışmaz!
+    
+    yazdir("\n📌 Ders: Bir şeyi verirsen artık senin değil!");
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Ödünç Verme</span><span class="en" style="display:none;">Example 2: Borrowing</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📚 odunc.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// Ödünç verme - & işareti kullan!
+fonksiyon kitabi_oku(kitap: &metin) {
+    yazdir("📖 Okunan kitap: {}", kitap);
+    // Sadece okuyoruz, değiştirmiyoruz
+}
+
+fonksiyon kitabi_yazdir(kitap: &metin) {
+    yazdir("📕 Kitap adı: {}", kitap);
+}
+
+fonksiyon ana() {
+    degisken benim_kitabim = "Harry Potter";
+    
+    // Kitabı ödünç ver (& ile)
+    kitabi_oku(&benim_kitabim);    // Arkadaş okudu
+    kitabi_yazdir(&benim_kitabim); // Başka arkadaş da baktı
+    
+    // ✅ Kitap hâlâ bizde!
+    yazdir("\n✅ Kitap hâlâ bende: {}", benim_kitabim);
+    yazdir("📌 Ders: & ile ödünç verirsen geri alırsın!");
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🎯 <span class="tr">Hatırla!</span><span class="en" style="display:none;">Remember!</span></h4>
+                    <ul>
+                        <li><span class="tr">Vermek = Sahipliği devretmek (geri almak yok)</span><span class="en" style="display:none;">Give = Transfer ownership (no getting back)</span></li>
+                        <li><span class="tr">Ödünç vermek (&) = Geçici olarak paylaşmak</span><span class="en" style="display:none;">Lend (&) = Temporarily share</span></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== LİSE ==================== -->
+        <div class="lise-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>📖 <span class="tr">Stack vs Heap</span><span class="en" style="display:none;">Stack vs Heap</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK</span></div>
+                    <pre><code>// Stack: Sabit boyutlu, hızlı
+degisken x: tamsayi = 42;        // Stack'te
+degisken y: ondalik = 3.14;      // Stack'te
+
+// Heap: Dinamik boyutlu, referans gerekir
+degisken metin = "Merhaba";      // Data heap'te, pointer stack'te
+degisken liste = [1, 2, 3, 4];   // Array heap'te
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Ownership Kuralları</span><span class="en" style="display:none;">Example 1: Ownership Rules</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📋 ownership.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon sahiplik_al(s: Metin) {
+    yazdir("Fonksiyon sahip: {}", s);
+}  // s burada drop edilir (bellek serbest)
+
+fonksiyon odunc_al(s: &Metin) {
+    yazdir("Ödünç aldım: {}", s);
+}  // Sadece referans biter, asıl veri yaşar
+
+fonksiyon ana() {
+    degisken s1 = Metin::yeni("Merhaba");
+    
+    // Move - sahiplik geçer
+    sahiplik_al(s1);
+    // yazdir("{}", s1);  // ❌ HATA: s1 artık geçersiz
+    
+    degisken s2 = Metin::yeni("Dünya");
+    
+    // Borrow - sadece referans
+    odunc_al(&s2);
+    yazdir("Hâlâ sahibim: {}", s2);  // ✅ Çalışır
+    
+    // Clone - derin kopya
+    degisken s3 = s2.klon();
+    yazdir("Orijinal: {}, Kopya: {}", s2, s3);
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Mutable References</span><span class="en" style="display:none;">Example 2: Mutable References</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">✏️ mutable.berk</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>function add_suffix(s: &mut String, suffix: &str) {
+    s.push_str(suffix);
+}
+
+function main() {
+    let mut name = String::from("Ali");
+    
+    // İmmutable borrow - sadece okuma (birden fazla olabilir)
+    let r1 = &name;
+    let r2 = &name;
+    print("Okunan: {} ve {}", r1, r2);
+    
+    // Mutable borrow - değiştirme (sadece 1 tane!)
+    let r3 = &mut name;
+    r3.push_str(" Veli");
+    print("Değiştirilen: {}", r3);
+    
+    // Fonksiyona mutable ref geç
+    add_suffix(&mut name, " Deli");
+    print("Sonuç: {}", name);
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ÜNİVERSİTE ==================== -->
+        <div class="universite-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>🎯 <span class="tr">Lifetime ve Borrow Checker</span><span class="en" style="display:none;">Lifetime and Borrow Checker</span></h2>
+                <ul>
+                    <li><span class="tr">Lifetime annotations ('a)</span></li>
+                    <li><span class="tr">Lifetime elision rules</span></li>
+                    <li><span class="tr">Static lifetime ('static)</span></li>
+                    <li><span class="tr">Non-lexical lifetimes (NLL)</span></li>
+                </ul>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Lifetime Annotations</span><span class="en" style="display:none;">Example 1: Lifetime Annotations</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Lifetimes)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>// Explicit lifetime annotation
+function longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() { x } else { y }
+}
+
+// Struct with lifetime
+struct TextParser<'a> {
+    content: &'a str,
+    position: usize,
+}
+
+impl<'a> TextParser<'a> {
+    function new(content: &'a str) -> Self {
+        TextParser { content, position: 0 }
+    }
+    
+    function remaining(&self) -> &'a str {
+        &self.content[self.position..]
+    }
+    
+    function advance(&mut self, n: usize) {
+        self.position = (self.position + n).min(self.content.len());
+    }
+}
+
+// Multiple lifetimes
+struct Context<'a, 'b> {
+    text: &'a str,
+    config: &'b Config,
+}
+
+function main() {
+    let s1 = String::from("Merhaba");
+    let s2 = String::from("Dünya!");
+    
+    let result = longest(&s1, &s2);
+    print("Longer: {}", result);
+    
+    // Parser example
+    let text = "Hello, World!";
+    let mut parser = TextParser::new(text);
+    print("Full: {}", parser.remaining());
+    parser.advance(7);
+    print("After advance: {}", parser.remaining());
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Smart Pointers</span><span class="en" style="display:none;">Example 2: Smart Pointers</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Smart Pointers)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>use std::rc::Rc;
+use std::cell::RefCell;
+
+// Box: Heap allocation with single ownership
+function box_example() {
+    let boxed = Box::new(42);
+    print("Boxed value: {}", boxed);
+    
+    // Recursive type requires Box
+    enum List {
+        Cons(i32, Box<List>),
+        Nil,
+    }
+    
+    let list = List::Cons(1, Box::new(List::Cons(2, Box::new(List::Nil))));
+}
+
+// Rc: Reference counting (single-threaded)
+function rc_example() {
+    let data = Rc::new(vec![1, 2, 3]);
+    
+    let ref1 = Rc::clone(&data);  // Increment count
+    let ref2 = Rc::clone(&data);
+    
+    print!("Reference count: {}", Rc::strong_count(&data));  // 3
+}
+
+// RefCell: Interior mutability
+function refcell_example() {
+    let data = RefCell::new(5);
+    
+    // Borrow mutably at runtime
+    *data.borrow_mut() += 1;
+    
+    // Multiple immutable borrows OK
+    let r1 = data.borrow();
+    let r2 = data.borrow();
+    print("Values: {}, {}", r1, r2);
+}
+
+// Combined: Rc<RefCell<T>> for shared mutable state
+struct SharedCounter {
+    value: Rc<RefCell<i32>>,
+}
+
+impl SharedCounter {
+    function new() -> Self {
+        SharedCounter { value: Rc::new(RefCell::new(0)) }
+    }
+    
+    function increment(&self) {
+        *self.value.borrow_mut() += 1;
+    }
+    
+    function get(&self) -> i32 {
+        *self.value.borrow()
+    }
+}
+
+function main() {
+    box_example();
+    rc_example();
+    refcell_example();
+    
+    let counter = SharedCounter::new();
+    counter.increment();
+    counter.increment();
+    print("Counter: {}", counter.get());
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ORTAK ÖZET -->
+        <section class="lesson-section">
+            <h2>📌 <span class="tr">Özet</span><span class="en" style="display:none;">Summary</span></h2>
+            <ul>
+                <li><span class="tr">Her değerin tek bir sahibi (owner) vardır</span><span class="en" style="display:none;">Every value has a single owner</span></li>
+                <li><span class="tr"><code>&</code> ile immutable borrow, <code>&mut</code> ile mutable borrow</span><span class="en" style="display:none;"><code>&</code> for immutable borrow, <code>&mut</code> for mutable borrow</span></li>
+                <li><span class="tr">References her zaman geçerli olmalı (no dangling)</span><span class="en" style="display:none;">References must always be valid (no dangling)</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="lesson-footer">
+        <a href="ders06.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+        <a href="ders08.html"><span class="tr">Sonraki: Hata Yönetimi →</span><span class="en" style="display:none;">Next: Error Handling →</span></a>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

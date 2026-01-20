@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ders 08: Hata Yönetimi | BERK 101</title>
+    <meta name="description" content="BERK'te Result, Option ve panic ile hata yönetimi">
+    <meta name="ai-lesson" content="8">
+    <meta name="ai-topics" content="error,Result,Option,panic,unwrap,expect,propagation">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:0.5rem;"><span class="logo">🦅</span><span class="brand-text">BERK 101</span></a></div>
+        <div class="nav-links"><a href="index.html#dersler">Tüm Dersler</a></div>
+        <div class="level-switch">
+            <button class="level-btn" data-level="ortaokul" title="11-14 yaş">🎮 Ortaokul</button>
+            <button class="level-btn active" data-level="lise" title="15-18 yaş">📚 Lise</button>
+            <button class="level-btn" data-level="universite" title="18+ yaş">🎓 Üniversite</button>
+        </div>
+        <div class="lang-switch"><button class="lang-btn active" data-lang="tr">TR</button><button class="lang-btn" data-lang="en">EN</button></div>
+    </nav>
+
+    <header class="lesson-header">
+        <div class="lesson-nav">
+            <a href="ders07.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+            <span class="lesson-meta"><span class="tr">Ders 8 / 10</span><span class="en" style="display:none;">Lesson 8 / 10</span></span>
+        </div>
+        <h1 class="lesson-title"><span class="tr">⚠️ Hata Yönetimi</span><span class="en" style="display:none;">⚠️ Error Handling</span></h1>
+        
+        <div class="level-info-box" style="margin-top:1rem;">
+            <div class="level-info ortaokul-info">
+                <span class="level-badge">🎮 Ortaokul</span>
+                <span class="tr">Bu derste: Oyunda beklenmedik durumları yönet!</span>
+                <span class="en" style="display:none;">In this lesson: Handle unexpected situations in games!</span>
+            </div>
+            <div class="level-info lise-info" style="display:flex;">
+                <span class="level-badge">📚 Lise</span>
+                <span class="tr">Bu derste: Result ve Option ile güvenli kod</span>
+                <span class="en" style="display:none;">In this lesson: Safe code with Result and Option</span>
+            </div>
+            <div class="level-info universite-info">
+                <span class="level-badge">🎓 Üniversite</span>
+                <span class="tr">Bu derste: Custom errors, anyhow/thiserror ve recovery patterns</span>
+                <span class="en" style="display:none;">In this lesson: Custom errors, anyhow/thiserror, and recovery patterns</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="lesson-content">
+        <!-- ==================== ORTAOKUL ==================== -->
+        <div class="ortaokul-content">
+            <section class="lesson-section">
+                <h2>🎮 <span class="tr">Ya Olmazsa?</span><span class="en" style="display:none;">What If It Fails?</span></h2>
+                <p><span class="tr">Oyunlarda her zaman bir şeyler ters gidebilir! Anahtar yoksa kapı açılmaz, can biterse oyun biter...</span><span class="en" style="display:none;">Things can go wrong in games! No key = no open door, no health = game over...</span></p>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Hazine Arama</span><span class="en" style="display:none;">Example 1: Treasure Hunt</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">🔍 hazine_ara.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// Belki (Option) - Ya varsa ya yoksa!
+fonksiyon sandik_ac(konum: tamsayi) -> Belki[metin] {
+    esle konum yap
+        1 => Bazi("💎 Elmas buldun!"),
+        2 => Bazi("💰 Altın buldun!"),
+        3 => Bazi("🗝️ Anahtar buldun!"),
+        _ => Hic,  // Boş sandık!
+    son
+}
+
+fonksiyon ana() {
+    yazdir("🗺️ HAZİNE AVI!\n");
+    
+    // 5 sandık kontrol et
+    icin i in 1..6 {
+        yazdir("📦 Sandık #{} açılıyor...", i);
+        
+        esle sandik_ac(i) yap
+            Bazi(hazine) => yazdir("   ✅ {}\n", hazine),
+            Hic => yazdir("   ❌ Boş sandık!\n"),
+        son
+    }
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Boss Saldırısı</span><span class="en" style="display:none;">Example 2: Boss Attack</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">👹 boss_attack.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>// Sonuç (Result) - Ya başarılı ya başarısız!
+fonksiyon saldir(oyuncu_guc: tamsayi, boss_kalkan: tamsayi) -> Sonuc[tamsayi, metin] {
+    eger oyuncu_guc <= 0 yap
+        don Hata("💀 Gücün yetmiyor!");
+    son
+    
+    eger boss_kalkan > oyuncu_guc yap
+        don Hata("🛡️ Kalkan çok güçlü!");
+    son
+    
+    degisken hasar = oyuncu_guc - boss_kalkan;
+    don Tamam(hasar);
+}
+
+fonksiyon ana() {
+    yazdir("⚔️ BOSS SAVAŞI\n");
+    
+    // Deneme 1: Zayıf saldırı
+    esle saldir(10, 20) yap
+        Tamam(hasar) => yazdir("💥 {} hasar verdin!", hasar),
+        Hata(mesaj) => yazdir("❌ {}", mesaj),
+    son
+    
+    // Deneme 2: Güçlü saldırı
+    esle saldir(50, 20) yap
+        Tamam(hasar) => yazdir("💥 {} hasar verdin!", hasar),
+        Hata(mesaj) => yazdir("❌ {}", mesaj),
+    son
+}
+</code></pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🎯 <span class="tr">Hatırla!</span><span class="en" style="display:none;">Remember!</span></h4>
+                    <ul>
+                        <li><span class="tr"><code>Belki/Option</code> = Var mı yok mu?</span><span class="en" style="display:none;"><code>Belki/Option</code> = Is there or not?</span></li>
+                        <li><span class="tr"><code>Sonuc/Result</code> = Başarılı mı hatalı mı?</span><span class="en" style="display:none;"><code>Sonuc/Result</code> = Success or error?</span></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== LİSE ==================== -->
+        <div class="lise-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>📖 <span class="tr">Option ve Result</span><span class="en" style="display:none;">Option and Result</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK</span></div>
+                    <pre><code>// Option: Değer var veya yok
+enum Option[T] {
+    Some(T),   // Değer var
+    None,      // Değer yok
+}
+
+// Result: İşlem başarılı veya hatalı
+enum Result[T, E] {
+    Ok(T),     // Başarılı + değer
+    Err(E),    // Hatalı + hata bilgisi
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Kullanıcı Doğrulama</span><span class="en" style="display:none;">Example 1: User Validation</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">👤 validation.berk</span><button onclick="copyCode(this)">📋 Kopyala</button></div>
+                    <pre><code>fonksiyon kullanici_bul(id: tamsayi) -> Belki[metin] {
+    esle id yap
+        1 => Bazi("Ali"),
+        2 => Bazi("Ayşe"),
+        3 => Bazi("Mehmet"),
+        _ => Hic,
+    son
+}
+
+fonksiyon yas_dogrula(yas: tamsayi) -> Sonuc[(), metin] {
+    eger yas < 0 yap
+        don Hata("Yaş negatif olamaz");
+    son
+    eger yas < 18 yap
+        don Hata("18 yaşından küçükler giremez");
+    son
+    eger yas > 120 yap
+        don Hata("Geçersiz yaş");
+    son
+    don Tamam(());
+}
+
+fonksiyon ana() {
+    // Option kullanımı
+    icin id in [1, 5, 2] {
+        esle kullanici_bul(id) yap
+            Bazi(isim) => yazdir("✅ Kullanıcı {}: {}", id, isim),
+            Hic => yazdir("❌ Kullanıcı {} bulunamadı", id),
+        son
+    }
+    
+    yazdir("");
+    
+    // Result kullanımı
+    icin yas in [25, -5, 15, 150] {
+        esle yas_dogrula(yas) yap
+            Tamam(_) => yazdir("✅ Yaş {} geçerli", yas),
+            Hata(msg) => yazdir("❌ Yaş {}: {}", yas, msg),
+        son
+    }
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Dosya İşlemleri</span><span class="en" style="display:none;">Example 2: File Operations</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">📁 file.berk</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>function read_config(path: &str) -> Result<Config, String> {
+    // Dosya var mı kontrol et
+    if !file_exists(path) {
+        return Err(format!("File not found: {}", path));
+    }
+    
+    // Dosyayı oku
+    let content = match read_file(path) {
+        Ok(c) => c,
+        Err(e) => return Err(format!("Read error: {}", e)),
+    };
+    
+    // Parse et
+    match parse_config(&content) {
+        Ok(config) => Ok(config),
+        Err(e) => Err(format!("Parse error: {}", e)),
+    }
+}
+
+function main() {
+    // Unwrap: Panik yapar hata varsa (riskli!)
+    // let config = read_config("config.json").unwrap();
+    
+    // Expect: Daha açıklayıcı panik
+    // let config = read_config("config.json").expect("Config yüklenemedi");
+    
+    // Match: En güvenli yol
+    match read_config("config.json") {
+        Ok(config) => {
+            print("✅ Config yüklendi");
+            print("  Version: {}", config.version);
+        },
+        Err(e) => {
+            print("❌ Hata: {}", e);
+            print("  Varsayılan ayarlar kullanılıyor...");
+        },
+    }
+    
+    // unwrap_or: Varsayılan değer
+    let value = some_option().unwrap_or(42);
+    
+    // unwrap_or_else: Lazy varsayılan
+    let value = some_option().unwrap_or_else(|| calculate_default());
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ÜNİVERSİTE ==================== -->
+        <div class="universite-content" style="display:none;">
+            <section class="lesson-section">
+                <h2>🎯 <span class="tr">Advanced Error Handling</span><span class="en" style="display:none;">Advanced Error Handling</span></h2>
+                <ul>
+                    <li><span class="tr">Custom error types</span></li>
+                    <li><span class="tr">Error propagation (?)</span></li>
+                    <li><span class="tr">anyhow ve thiserror crates</span></li>
+                    <li><span class="tr">Error recovery patterns</span></li>
+                </ul>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 1: Custom Error Types</span><span class="en" style="display:none;">Example 1: Custom Error Types</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (thiserror)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>use thiserror::Error;
+
+#[derive(Error, Debug)]
+enum AppError {
+    #[error("Database error: {0}")]
+    Database(#[from] DatabaseError),
+    
+    #[error("Network error: {source}")]
+    Network {
+        #[source]
+        source: std::io::Error,
+        url: String,
+    },
+    
+    #[error("Validation failed: {field} - {message}")]
+    Validation {
+        field: String,
+        message: String,
+    },
+    
+    #[error("Not found: {0}")]
+    NotFound(String),
+    
+    #[error("Unauthorized")]
+    Unauthorized,
+}
+
+// Error conversion
+impl From<serde_json::Error> for AppError {
+    fn from(e: serde_json::Error) -> Self {
+        AppError::Validation {
+            field: "json".to_string(),
+            message: e.to_string(),
+        }
+    }
+}
+
+// Result type alias
+type AppResult<T> = Result<T, AppError>;
+
+function get_user(id: u64) -> AppResult<User> {
+    if id == 0 {
+        return Err(AppError::NotFound(format!("User {}", id)));
+    }
+    
+    let user = db_query(id)?;  // ? auto-converts DatabaseError
+    Ok(user)
+}
+
+function main() {
+    match get_user(0) {
+        Ok(user) => print!("User: {:?}", user),
+        Err(AppError::NotFound(msg)) => print!("404: {}", msg),
+        Err(AppError::Unauthorized) => print!("401: Please login"),
+        Err(e) => print!("Error: {}", e),
+    }
+}
+</code></pre>
+                </div>
+            </section>
+
+            <section class="lesson-section">
+                <h2>📝 <span class="tr">Örnek 2: Error Recovery</span><span class="en" style="display:none;">Example 2: Error Recovery</span></h2>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">BERK (Recovery)</span><button onclick="copyCode(this)">📋 Copy</button></div>
+                    <pre><code>use anyhow::{Context, Result, bail};
+
+// Retry pattern
+async function with_retry<T, F, Fut>(
+    max_retries: u32,
+    delay: Duration,
+    mut operation: F,
+) -> Result<T>
+where
+    F: FnMut() -> Fut,
+    Fut: Future<Output = Result<T>>,
+{
+    let mut last_error = None;
+    
+    for attempt in 1..=max_retries {
+        match operation().await {
+            Ok(result) => return Ok(result),
+            Err(e) => {
+                print!("[Attempt {}/{}] Error: {}", attempt, max_retries, e);
+                last_error = Some(e);
+                if attempt < max_retries {
+                    tokio::time::sleep(delay).await;
+                }
+            }
+        }
+    }
+    
+    Err(last_error.unwrap())
+}
+
+// Circuit breaker pattern
+struct CircuitBreaker {
+    failure_count: AtomicU32,
+    threshold: u32,
+    state: AtomicBool,  // true = open (blocking)
+}
+
+impl CircuitBreaker {
+    function call<T, F>(&self, f: F) -> Result<T>
+    where
+        F: FnOnce() -> Result<T>,
+    {
+        if self.state.load(Ordering::Relaxed) {
+            bail!("Circuit breaker is open");
+        }
+        
+        match f() {
+            Ok(result) => {
+                self.failure_count.store(0, Ordering::Relaxed);
+                Ok(result)
+            }
+            Err(e) => {
+                let count = self.failure_count.fetch_add(1, Ordering::Relaxed);
+                if count + 1 >= self.threshold {
+                    self.state.store(true, Ordering::Relaxed);
+                }
+                Err(e)
+            }
+        }
+    }
+}
+
+async function main() -> Result<()> {
+    // With context for better error messages
+    let config = read_config("app.toml")
+        .context("Failed to load application config")?;
+    
+    // Retry with backoff
+    let data = with_retry(3, Duration::from_secs(1), || {
+        fetch_data(&config.api_url)
+    }).await.context("Failed to fetch data after 3 retries")?;
+    
+    print!("Data: {:?}", data);
+    Ok(())
+}
+</code></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- ORTAK ÖZET -->
+        <section class="lesson-section">
+            <h2>📌 <span class="tr">Özet</span><span class="en" style="display:none;">Summary</span></h2>
+            <ul>
+                <li><span class="tr"><code>Option</code>: Some(değer) veya None</span><span class="en" style="display:none;"><code>Option</code>: Some(value) or None</span></li>
+                <li><span class="tr"><code>Result</code>: Ok(değer) veya Err(hata)</span><span class="en" style="display:none;"><code>Result</code>: Ok(value) or Err(error)</span></li>
+                <li><span class="tr"><code>?</code> operatörü hata propagasyonu için</span><span class="en" style="display:none;"><code>?</code> operator for error propagation</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="lesson-footer">
+        <a href="ders07.html">← <span class="tr">Önceki</span><span class="en" style="display:none;">Previous</span></a>
+        <a href="ders09.html"><span class="tr">Sonraki: Generics →</span><span class="en" style="display:none;">Next: Generics →</span></a>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>
