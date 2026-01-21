@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>🚀 Modern Sistem Programlama Eğitimi</strong><br>
+  <strong> Modern Sistem Programlama Eğitimi</strong><br>
   <em>Systems Programming 101</em>
 </p>
 
@@ -17,11 +17,11 @@
 
 ---
 
-## 🎯 Hakkında
+##  Hakkında
 
 **BERK Learn**, BERK programlama dilini öğrenmek için hazırlanmış interaktif bir eğitim platformudur. Türkçe ve İngilizce dil desteği ile sistem programlamanın temellerinden ileri seviye konulara kadar kapsamlı bir müfredat sunar.
 
-## ✨ Özellikler
+##  Özellikler
 
 - 🇹🇷 **Türkçe & İngilizce** - Tam çift dil desteği
 - 📊 **3 Eğitim Seviyesi** - Ortaokul, Lise, Üniversite
@@ -45,7 +45,7 @@
 | 09 | Koleksiyonlar | Dizi, liste, harita |
 | 10 | Sonraki Adımlar | İleri konular, kaynaklar |
 
-## 🚀 Kurulum
+##  Kurulum
 
 ### GitHub Pages ile
 
